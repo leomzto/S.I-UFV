@@ -14,7 +14,7 @@ int main(void)
 
     int a = l1 * l2;
 
-    printf("A area é: %dcm", a);
+    printf("A area é: %dcm\n", a);
 
     return 0;
 }
