@@ -1,0 +1,257 @@
+Aula Prática 02
+
+Nome: Leonardo Padovani Manzato
+Matricula: 9862
+
+Ex1: 
+
+==============
+
+#include <stdio.h>
+
+void verifica(int num1, int num2);
+
+int main(void)
+{
+    int num1, num2;
+
+    printf("Digite o 1° número: ");
+    scanf("%d", &num1);
+
+    printf("Digite o 2° número: ");
+    scanf("%d", &num2);
+
+    verifica(num1, num2);
+
+    return 0; 
+}
+
+void verifica(int num1, int num2)
+{
+    int maior, menor;
+
+    if (num1 < num2)
+    {
+        menor = num1;
+        maior = num2;
+    }
+    else
+    {
+        menor = num2;
+        maior = num1;
+    }
+
+    printf("%d é %s e %s\n",
+    num1,
+    (num1 % 2 == 0) ? "par" : "impar",
+    (num1 == maior) ? "maior" : "menor");
+
+
+    printf("%d é %s e %s\n",
+    num2,
+    (num2 % 2 == 0) ? "par" : "impar",
+    (num2 == menor) ? "menor" : "maior");
+}
+
+==============
+
+Ex2: 
+
+==============
+
+#include <stdio.h>
+#include <ctype.h>
+
+int main(void) 
+{
+    char codigo;
+
+    do
+    {
+    printf("Entre com um código de consumo energético (A | B | C | D | E): ");
+    scanf(" %c", &codigo);
+    codigo = toupper(codigo);
+
+    if (codigo != 'A' && codigo != 'B' && codigo != 'C' && codigo != 'D' && codigo != 'E') 
+    {
+        printf("Inválido, tente novamente.\n");
+    }
+
+    } while (codigo != 'A' && codigo != 'B' && codigo != 'C' && codigo != 'D' && codigo != 'E');
+
+    switch(codigo)
+    {
+        case 'A':
+            printf("Ventilador, Televisão\n");
+            break;
+        case 'B':
+            printf("Aparelho de som, Batedeira\n");
+            break;
+        case 'C':
+            printf("Fogão elétrico, Liquidificador\n");
+            break;
+        case 'D':
+            printf("Freezer, Geladeira, Máquina de Lavar\n");
+            break;
+        case 'E':
+            printf("Ar-condicionado, Micro-ondas\n");
+            break;
+    }
+
+    return 0;
+}
+
+
+==============
+
+Ex3: 
+
+==============
+
+#include <stdio.h>
+
+char verificar_nota(float nota);
+
+int main(void)
+{
+    int matricula;
+    float nota;
+    char conceito;
+
+    printf("Entre com a matricula: ");
+    scanf("%d", &matricula);
+
+    printf("Digite sua nota: ");
+    scanf("%f", &nota);
+
+    conceito = verificar_nota(nota);
+
+    printf("Aluno: %d\nConceito: %c\n", 
+        matricula, conceito);
+
+    return 0;
+}
+
+char verificar_nota(float nota)
+{
+    if (nota >= 9)
+    {
+        return 'A';
+    }
+    else if (nota >= 8 && nota < 9)
+    {
+        return 'B';
+    }
+    else if (nota >= 6 && nota < 8)
+    {
+        return 'C';
+    }
+    else if (nota >= 3 && nota < 6)
+    {
+        return 'D';
+    }
+    else
+    {
+        return 'E';
+    }
+}
+
+
+==============
+
+Ex4: 
+
+==============
+
+#include <stdio.h>
+#include <ctype.h>
+
+void operacoes(float num1, float num2, int opcao);
+
+int main(void)
+{
+    float num1, num2;
+    char opcao;
+
+    printf("Insira o 1° número: ");
+    scanf("%f", &num1);
+
+    printf("Insira o 2° número: ");
+    scanf("%f", &num2);
+
+    printf("Escolha a operação:\n");
+    printf("A. Soma\nB. Subtração\nC. Multiplicação\nD. Divisão\n\nOpção: ");
+    scanf(" %c", &opcao);
+
+    opcao = tolower(opcao);
+
+    operacoes(num1, num2, opcao);
+
+    return 0;
+}
+
+void operacoes(float num1, float num2, int opcao)
+{
+    float resultado;
+
+    switch(opcao)
+    {
+        case 'a':
+            resultado = num1 + num2;
+            printf("%.2f + %.2f = %.2f\n", num1, num2, resultado);
+            break;
+        case 'b':
+            resultado = num1 - num2;
+            printf("%.2f - %.2f = %.2f\n", num1, num2, resultado);
+            break;
+        case 'c':
+            resultado = num1 * num2;
+            printf("%.2f x %.2f = %.2f\n", num1, num2, resultado);
+            break;
+        case 'd':
+            resultado = num1 / num2;
+            printf("%.2f ÷ %.2f = %.2f\n", num1, num2, resultado);
+            break;
+        default:
+            printf("Opção inválida\n");
+            break;
+    }
+}
+
+==============
+
+Ex5: 
+
+==============
+
+// formula de Kaprekar pra 4 digitos: (X+Y)² = 100X+Y  ( x e y sao numeros de 2 digitos cada um)
+//
+// 3025 ÷ 100 = 30.25
+//
+// 3025 / 100 = 30.0
+// 3025 % 100 = 0.25
+//
+// 30 + 25 = 55 > 55 * 55 = 3025
+
+#include <stdio.h>
+
+int main(void)
+{
+    int num, p1, p2, soma_partes;
+
+    printf("-= Verificação de Kaprekar =-\n");
+    printf("Digite um número de 4 digitos: ");
+    scanf("%d", &num);
+
+    p1 = num / 100;
+    p2 = num % 100;
+
+    soma_partes = p1 + p2;
+
+    printf("O número %d %s com as propriedades de Kaprekar\n",
+        num, (soma_partes * soma_partes == num) ? "condiz" : "não condiz");
+
+    return 0;
+}
+
+==============
