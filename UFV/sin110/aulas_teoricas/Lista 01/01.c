@@ -15,18 +15,8 @@ int main(void)
     int inicio, fim;
     int soma = 0;
 
-    do{
-        printf("Digite o valor inicial: ");
-        scanf("%d", &inicio);
-        printf("Digite o valor final: ");
-        scanf("%d", &fim);
-
-        if (inicio > fim)
-        {
-            printf("Você não pode colocar o valor inicial sendo menor que o final.\nTente novamente: ");
-        }
-    }
-    while (inicio > fim);
+    printf("Digite o valor inicial e valor final: ");
+    scanf("%d%d", &inicio, &fim);
 
     for (int intervalo = inicio; intervalo <= fim; intervalo++)
     {
@@ -37,7 +27,6 @@ int main(void)
     }
 
     printf("Soma dos ímpares neste intervalo: %d\n", soma);
-
 
     return 0;
 }
