@@ -10,19 +10,19 @@ int EhPrimo(int num);
 
 int main(void)
 {
-    int n, checagem = 0, num_primo = 2, soma = 0;
+    int n, checagem = 0, primos = 2, soma = 0;
 
     printf("Entre com o valor de n: ");
     scanf("%d", &n);
 
     while (checagem < n)
     {
-        if (EhPrimo(num_primo))
+        if (EhPrimo(primos))
         {
-            soma += num_primo;
+            soma += primos;
             checagem++;
         }
-        num_primo++;
+        primos++;
     }
     
     printf("A soma dos %d primeiros números primos é: %d\n", n, soma);
