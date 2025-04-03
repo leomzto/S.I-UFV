@@ -1,0 +1,207 @@
+Aula Prática 03
+*****************************falta ex 06 e ex 03*****************************
+Nome: Leonardo Padovani Manzato
+Matricula: 9862
+
+Ex1: 
+
+==============
+
+#include <stdio.h>
+
+
+int main(void)
+{
+    int n1 = 1, n2 = 1;
+
+   while(n1 != 11 && n2 != 11)
+   {
+    
+    printf("%d x %d = %d\n", n1, n2, n1 * n2);
+    n2++;
+
+    if (n2 == 11)
+        {
+            n2 = 1;
+            n1++;
+            printf("\n");
+        }
+   }
+    return 0;
+}
+
+
+==============
+
+Ex2: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+    int n;
+    int soma = 0, qtd_impares = 0;
+    int num_impar = 1;
+
+    printf("Numero: ");
+    scanf("%d", &n);
+
+    while (qtd_impares < n)
+    {
+        if (num_impar % 2 != 0)
+        {
+            soma += num_impar;
+            qtd_impares++;
+        }
+
+        num_impar++;
+    }
+
+    printf("O quadrado de %d é %d\n", n, soma);
+
+    return 0;
+}
+
+
+==============
+
+Ex3: 
+
+==============
+
+
+
+==============
+
+Ex4: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+
+int dividendo;
+int divisor = 1;
+
+printf("Insira um número para descobrir seus divisores: ");
+scanf("%d", &dividendo);
+
+while (divisor <= dividendo)
+{
+    if (dividendo % divisor == 0)
+    {
+        printf("%d ", divisor);
+    }
+    divisor++;
+}
+
+printf("\n");
+
+    return 0;
+}
+
+
+==============
+
+Ex5: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+    int qtd_residencias;
+    float valor_kwh, consumo_kwh;
+
+    int residencia = 1;
+
+    float soma = 0.0;
+    float maior, menor;
+
+    printf("Insira a quantidade de residencias na rua: ");
+    scanf("%d", &qtd_residencias);
+
+    printf("Preço do kWh: R$");
+    scanf("%f", &valor_kwh);
+
+    do
+    {
+        printf("Insira o valor de consumo da residencia %d: ", residencia);
+        scanf("%f", &consumo_kwh);
+        soma += consumo_kwh;
+
+        if (residencia == 1)
+        {
+            maior = menor = consumo_kwh;
+        }
+        else
+        {
+            if (consumo_kwh > maior)
+            {
+                maior = consumo_kwh;
+            }
+
+            if (consumo_kwh < menor)
+            {
+                menor = consumo_kwh;
+            }
+        }
+
+        residencia++;
+    }
+    while (residencia <= qtd_residencias);
+
+    float media_consumo = soma / qtd_residencias;
+
+    printf("Consumo médio: %.2f\n", media_consumo);
+    printf("Maior consumo: %.2f\n", maior);
+    printf("Menor consumo: %.2f\n", menor);
+
+    return 0;
+}
+
+
+==============
+
+Ex6:
+
+==============
+
+==============
+
+Ex7:
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+
+    int num = 1000;
+    int p1, p2, soma_partes;
+
+    while (num < 9999)
+    {
+        p1 = num / 100;
+        p2 = num % 100;
+
+        soma_partes = p1 + p2;
+
+        if (soma_partes * soma_partes == num)
+        {
+            printf("%d\n", num);
+        }
+
+        num++;
+    }
+
+    return 0;
+}
+
+==============
