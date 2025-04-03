@@ -12,12 +12,11 @@ int main(void)
     while ( p <= pontos)
     {
         soma += p;
+        printf("%d ", soma);
         p++;
-       
     }
 
-    printf("%d\n", soma);
-
-
+    printf("\n");
+    
     return 0;
 }
