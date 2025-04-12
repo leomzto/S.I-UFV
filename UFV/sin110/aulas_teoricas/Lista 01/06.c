@@ -18,21 +18,25 @@
 
 int main(void)
 {
-    char numero[6];
+    int digitos[4];
     int num;
+    int i;
 
-    do{
-        printf("Entre com um número de quatro algarismos: ");
-        fgets(numero, sizeof(numero), stdin);
-
-        num = atoi(numero);
-
-    }
-    while (num < 1000 || num > 9999);
-
-    for (int i = 0; i < 4; i++)
+    do
     {
-        printf("%c\n", numero[i]);
+        printf("Entre com um número de quatro algarismos: ");
+        scanf("%d", &num);
+    }while (num < 1000 || num > 9999);
+
+    for (i = 4; i >=0; i--)
+    {
+        digitos[i - 1] = num %10;
+        num = num / 10;
+    }
+
+    for (i = 0; i < 4; i++)
+    {
+        printf("%d\n", digitos[i]);
     }
 
     return 0;
