@@ -7,6 +7,40 @@ Ex1:
 
 ==============
 
+#include <stdio.h>
+
+int main(void)
+{
+    int num[10];
+    int i;
+    int cont2 = 0;
+    int cont3 = 0;
+    int cont5 = 0;
+
+
+    printf("Digite 10 números: ");
+
+    for (int i = 0; i < 10; i++)
+    {
+        scanf("%d", &num[i]);
+    }
+
+    for(i = 0; i < 10; i++)
+    {
+        if (num[i] == 2)
+            cont2++;
+        if (num[i] == 3)
+            cont3++;
+        if (num[i] == 5)
+            cont5++;
+    }
+
+    printf("%d numeros 2\n", cont2);
+    printf("%d numeros 3\n", cont3);
+    printf("%d numeros 5\n", cont5);
+
+    return 0.;
+}
 
 
 ==============
@@ -15,6 +49,35 @@ Ex2:
 
 ==============
 
+#include <stdio.h>
+
+int main(void)
+{
+    int num[10];
+    int i;
+    int qtd_impar = 0;
+
+    printf("Insira 10 numeros: ");
+
+    for (i = 0; i < 10; i++)
+    {
+        scanf("%d", &num[i]);
+    }
+
+    for (i = 0; i < 10; i++)
+    {
+        if (num[i] % 2 != 0)
+        {
+            printf("%d ", num[i]);
+            qtd_impar++;
+        }
+    }
+
+    printf("\n");
+    printf("Quantidade de impares: %d \n", qtd_impar);
+
+    return 0;
+}
 
 
 ==============
@@ -23,6 +86,50 @@ Ex3:
 
 ==============
 
+#include <stdio.h>
+
+int main(void)
+{
+    int num[15];
+    int opcao, i, k;
+
+    printf("Entre com 15 números: ");
+    for (i = 0; i < 15; i++) 
+    {
+        scanf("%d", &num[i]);
+    }
+
+    do
+    {
+        printf("Escolha entre:\n1. Imprimir os numeros\n2. Imprimir na ordem contraria\nOpcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+            case 1:
+                for (i = 0; i < 15; i++)
+                {
+                    printf("%d ", num[i]);
+                }
+                printf("\n");
+                break;
+
+            case 2:
+                for (k = 14; k >= 0; k--)
+                {
+                    printf("%d ", num[k]);
+                }
+                printf("\n");
+                break;
+
+            default:
+                printf("Opcao invalida. Tente novamente.\n");
+        }
+
+    } while (opcao != 1 && opcao != 2);
+
+    return 0;
+}
 
 
 ==============
@@ -31,6 +138,38 @@ Ex4:
 
 ==============
 
+#include <stdio.h>
+
+int main(void)
+{
+    int num[8];
+    int i, x, y;
+    int soma = 0;
+
+    printf("Entre com 8 números: ");
+    for (i = 0; i < 8; i++) 
+    {
+        scanf("%d", &num[i]);
+    }
+
+    printf("Entre com a posição do 1° e do 2° número desejado: ");
+    scanf("%d%*[, ]%d", &x, &y);
+
+    if (x < 1 || x > 8 || y < 1 || y > 8)
+    {
+        printf("Posições inválidas.\n");
+        return 1;
+    }
+
+    x -= 1;
+    y -= 1;
+
+    soma = num[x] + num[y];
+
+    printf("%d + %d = %d \n", num[x], num[y], soma);
+
+    return 0;
+}
 
 
 ==============
@@ -39,6 +178,46 @@ Ex5:
 
 ==============
 
+#include <stdio.h>
+
+int main(void)
+{
+    int num[6];
+    int i, par, impar;
+    int soma_pares = 0, qtd_impares = 0;;
+    
+    printf("Entre com 6 números inteiros: ");
+    for (i = 0; i < 6; i++)
+    {
+        scanf("%d", &num[i]);
+    }
+
+    printf("Números pares: ");
+    for (i = 0; i < 6; i++)
+    {
+        if (num[i] % 2 == 0)
+        {
+            par = num[i];
+            printf("%d ", par);
+            soma_pares += par;
+        }
+    }
+    printf("\nSoma dos pares: %d\n", soma_pares); 
+
+    printf("Números impares: ");
+    for (i = 0; i < 6; i++)
+    {
+        if (num[i] % 2 != 0)
+        {
+            impar = num[i];
+            printf("%d ", impar);
+            qtd_impares++;
+        }
+    }
+    printf("\nQuantidade de ímpares: %d\n", qtd_impares); 
+
+    return 0;
+}
 
 
 ==============
@@ -47,7 +226,47 @@ Ex6:
 
 ==============
 
+#include <stdio.h>
+#include <stdbool.h>
 
+int main(void)
+{
+    int num[10];
+    int i, j, repetido, numero;
+
+    printf("Entre com 10 números inteiros diferentes: ");
+
+    for (i = 0; i < 10; i++)
+    {
+        do
+        {
+            scanf("%d", &numero);
+
+            repetido = false;
+            for (j = 0; j < i; j++)
+            {
+                if (num[j] == numero)
+                {
+                    repetido = true;
+                    printf("%d ja foi inserido.\n", numero);
+                    printf("Entre com outro número.\n");
+                    break;
+                }
+            }
+        }while (repetido);
+
+        num[i] = numero;
+    }
+
+    printf("\nNúmeros digitados: ");
+    for (i = 0; i < 10; i++)
+    {
+        printf("%d ", num[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
 
 ==============
 
@@ -59,26 +278,3 @@ Ex7:
 
 ==============
 
-Ex8:
-
-==============
-
-
-
-==============
-
-Ex9:
-
-==============
-
-
-
-==============
-
-Ex10:
-
-==============
-
-
-
-==============
