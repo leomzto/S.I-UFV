@@ -16,7 +16,7 @@ int main(void)
     {
         printf("%d/%d", numerador, denominador);
         if (denominador < limite_denominador)
-            printf(" + ");
+            printf(" +\n");
 
         S += (double) numerador / denominador;
     }

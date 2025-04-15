@@ -20,7 +20,7 @@ int main(void)
             int fatorial_coluna = fatorial(coluna);
             int fatorial_linha_menos_coluna = fatorial(linha - coluna);
 
-            triangulo = fatorial_linha / (fatorial_coluna * fatorial_linha_menos_coluna);
+            triangulo = (fatorial_linha / (fatorial_coluna * fatorial_linha_menos_coluna));
 
             printf("%d ", triangulo);
         }
