@@ -1,32 +1,22 @@
 #include <stdio.h>
 
+
+int EhPrimo(int numero);
 int main(void)
 {
-    int num;
-    int divisores;
-    int qtd_primos = 0;
-    int soma = 0;
-    
+    int num, qtd_primos = 0, soma = 0;
+
     printf("Entre com um número: ");
     scanf("%d", &num);
 
-    int numerador, divisor;
-
     printf("Números primos até %d: ", num);
-    for (numerador = 2; numerador <= num; numerador++)
+    for (int i = 2; i <= num; i++)
     {
-        divisores = 0;
-        for (divisor = 1; divisor <= numerador; divisor++)
+        if (EhPrimo(i))
         {
-            if (numerador % divisor == 0)
-                divisores++;
-        }
-        
-        if (divisores == 2)
-        {
+            printf("%d ", i);
             qtd_primos++;
-            printf("%d ",numerador);
-            soma += numerador;
+            soma += i;
         }
     }
 
@@ -34,4 +24,20 @@ int main(void)
     printf("Soma dos primos até %d: %d\n", num, soma);
 
     return 0;
+}
+
+
+int EhPrimo(int numero)
+{
+    int i;
+
+    if (numero <= 1)
+        return 0;
+
+    for (i = 2; i < numero; i++)
+    {
+        if (numero % i == 0)
+            return 0;
+    }
+    return 1;
 }
