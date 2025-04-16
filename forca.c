@@ -16,13 +16,10 @@ int atualizar_palavra(char *palavra, char *palavra_oculta, char letra);
 
 int main(void)
 {
-    char palavra[TAMANHO_PALAVRA];
-    char palavra_oculta[TAMANHO_PALAVRA];
-    char letras_erradas[TENTATIVAS_MAX];
-    char letra;
-    int tentativas = TENTATIVAS_MAX;
-    int acertou;
-    int contabilizar_erradas = 0;
+    char palavra[TAMANHO_PALAVRA], palavra_oculta[TAMANHO_PALAVRA]; 
+    char letra, letras_erradas[TENTATIVAS_MAX], contabilizar_erradas = 0;
+    int acertou, tentativas = TENTATIVAS_MAX;
+    
     int i;
 
    ocultar_palavra(palavra, palavra_oculta);
