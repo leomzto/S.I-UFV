@@ -6,6 +6,7 @@
 #define TENTATIVAS_MAX 6
 
 void jogar();
+void ocultar_palavra(char *palavra);
 void esconder(char *palavra_oculta);
 void exibir_erradas( char *letras_erradas, int contabilizar_erradas);
 int letras_usadas(char *letras_erradas, int contabilizar_erradas, char letra);
@@ -30,8 +31,7 @@ void jogar()
     int contabilizar_erradas = 0;
     int i;
 
-    printf("Escolha a palavra: ");
-    scanf("%s", palavra);
+    ocultar_palavra(palavra);
 
     for (i = 0; i < strlen(palavra); i++)
     {
@@ -83,6 +83,25 @@ void jogar()
     printf("\n");
 
 }
+
+
+void ocultar_palavra(char *palavra)
+{
+    printf("Escolha a palavra: ");
+    scanf("%s", palavra);
+    
+    for (int i = 0; i < strlen(palavra) + strlen("Escolha a palavra: "); i++)
+{
+        printf("\b");
+    }
+    printf("\n");
+    
+    for (int i = 0; palavra[i] != '\0'; i++)
+{
+        palavra[i] = tolower(palavra[i]);
+    }
+}
+
 
 void esconder(char *palavra_oculta)
 {
