@@ -7,7 +7,6 @@
 #define TENTATIVAS_MAX 6
 
 void jogar();
-void ocultar_palavra(char *palavra);
 void esconder(char *palavra_oculta);
 void exibir_erradas( char *letras_erradas, int contabilizar_erradas);
 int letras_usadas(char *letras_erradas, int contabilizar_erradas, char letra);
@@ -15,13 +14,6 @@ int atualizar_palavra(char *palavra, char *palavra_oculta, char letra);
 
 
 int main(void)
-{
-    jogar();
-
-    return 0;
-}
-
-void jogar()
 {
     char palavra[TAMANHO_PALAVRA];
     char palavra_oculta[TAMANHO_PALAVRA];
@@ -32,7 +24,8 @@ void jogar()
     int contabilizar_erradas = 0;
     int i;
 
-    ocultar_palavra(palavra);
+    printf("Escolha a palavra: ");
+    scanf("%s", palavra);
 
     for (i = 0; i < strlen(palavra); i++)
     {
@@ -43,7 +36,7 @@ void jogar()
     while (tentativas > 0)
     {
         printf("\nTente adivinar a palavra: ");
-        esconder(palavra_oculta);
+        palavra_forca(palavra_oculta);
 
         printf("\nTentativas restantes: %d\n", tentativas);
         exibir_erradas(letras_erradas, contabilizar_erradas);
@@ -105,7 +98,33 @@ void ocultar_palavra(char *palavra)
 }
 
 
-void esconder(char *palavra_oculta)
+
+void ocultar_palavra(char *palavra, char *palavra_oculta)
+{
+    int i;
+    printf("Escolha a palavra: ");
+    scanf("%s", palavra);
+    
+    for (i = 0; i < strlen(palavra) + strlen("Escolha a palavra: "); i++)
+    {
+        printf("\b");
+    }
+    printf("\n");
+    
+    for (i = 0; palavra[i] != '\0'; i++)
+    {
+        palavra[i] = tolower(palavra[i]);
+    }
+
+    for (i = 0; i < strlen(palavra); i++)
+    {
+        palavra_oculta[i] = '_';
+    }
+    palavra_oculta[strlen(palavra)] = '\0';
+}
+
+
+void palavra_forca(char *palavra_oculta)
 {
     int i;
     for (i = 0; i < strlen(palavra_oculta); i++)
@@ -114,6 +133,7 @@ void esconder(char *palavra_oculta)
     }
     printf("\n");
 }
+
 
 void exibir_erradas( char *letras_erradas, int contabilizar_erradas)
 {
@@ -126,6 +146,7 @@ void exibir_erradas( char *letras_erradas, int contabilizar_erradas)
     printf("\n");
 }
 
+
 int letras_usadas(char *letras_erradas, int contabilizar_erradas, char letra)
 {
     int i;
@@ -136,6 +157,7 @@ int letras_usadas(char *letras_erradas, int contabilizar_erradas, char letra)
     }
     return 0;
 }
+
 
 int atualizar_palavra(char *palavra, char *palavra_oculta, char letra)
 {
