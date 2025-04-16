@@ -2,12 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <unistd.h>
 
 #define TAMANHO_PALAVRA 100
 #define TENTATIVAS_MAX 6
 
-void jogar();
-void esconder(char *palavra_oculta);
+void ocultar_palavra(char *palavra, char *palavra_oculta);
+void palavra_forca(char *palavra_oculta);
 void exibir_erradas( char *letras_erradas, int contabilizar_erradas);
 int letras_usadas(char *letras_erradas, int contabilizar_erradas, char letra);
 int atualizar_palavra(char *palavra, char *palavra_oculta, char letra);
@@ -24,14 +25,7 @@ int main(void)
     int contabilizar_erradas = 0;
     int i;
 
-    printf("Escolha a palavra: ");
-    scanf("%s", palavra);
-
-    for (i = 0; i < strlen(palavra); i++)
-    {
-        palavra_oculta[i] = '_';
-    }
-    palavra_oculta[strlen(palavra)] = '\0';
+   ocultar_palavra(palavra, palavra_oculta);
 
     while (tentativas > 0)
     {
@@ -43,6 +37,7 @@ int main(void)
 
         printf("Digite uma letra: ");
         scanf(" %c", &letra);
+        letra = tolower(letra);
 
         if (letras_usadas(letras_erradas, contabilizar_erradas, letra))
         {
@@ -80,35 +75,12 @@ int main(void)
 }
 
 
-void ocultar_palavra(char *palavra)
-{
-    printf("Escolha a palavra: ");
-    scanf("%s", palavra);
-    
-    for (int i = 0; i < strlen(palavra) + strlen("Escolha a palavra: "); i++)
-    {
-        printf("\b");
-    }
-    printf("\n");
-    
-    for (int i = 0; palavra[i] != '\0'; i++)
-    {
-        palavra[i] = tolower(palavra[i]);
-    }
-}
-
-
-
 void ocultar_palavra(char *palavra, char *palavra_oculta)
 {
     int i;
-    printf("Escolha a palavra: ");
-    scanf("%s", palavra);
     
-    for (i = 0; i < strlen(palavra) + strlen("Escolha a palavra: "); i++)
-    {
-        printf("\b");
-    }
+    strcpy(palavra, getpass("Escolha a palavra: "));
+
     printf("\n");
     
     for (i = 0; palavra[i] != '\0'; i++)
