@@ -23,7 +23,7 @@ int main(void)
 
         while(!posicao_valida)
         {
-            printf("Turno do jogador %c.\nDigite a linha e a coluna para sua jogada: ", jogador_atual);
+            printf("\nTurno do jogador %c.\nDigite a linha e a coluna para sua jogada: ", jogador_atual);
             scanf("%d %d", &linha_escolhida, &coluna_escolhida);
 
             linha_escolhida -= 1;
@@ -36,7 +36,7 @@ int main(void)
             }
             else
             {
-                printf("Jogada Inválida.\nTente novamente.\n");
+                printf("\nJogada Inválida.\nTente novamente.\n");
             }
         }
 
@@ -72,10 +72,10 @@ void exibir_tabuleiro(char tabuleiro[3][3])
         for(coluna = 0; coluna < 3; coluna++)
         {
             printf(" %c ", tabuleiro[linha][coluna]);
-            if (coluna < 3 - 1) printf("|");
+            if (coluna < 2) printf("|");
         }
         printf("\n");
-        if (linha < 3 - 1) printf("---|---|---\n");
+        if (linha < 2) printf("---|---|---\n");
     }
 }
 
