@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #define TAMANHO_PALAVRA 100
 #define TENTATIVAS_MAX 6
@@ -64,6 +65,7 @@ void jogar()
         {
             printf("Opa!, a letra %c não está na palavra.\n", letra);
             letras_erradas[TENTATIVAS_MAX - tentativas] = letra;
+            contabilizar_erradas++;
             tentativas--;
         }
 
@@ -91,13 +93,13 @@ void ocultar_palavra(char *palavra)
     scanf("%s", palavra);
     
     for (int i = 0; i < strlen(palavra) + strlen("Escolha a palavra: "); i++)
-{
+    {
         printf("\b");
     }
     printf("\n");
     
     for (int i = 0; palavra[i] != '\0'; i++)
-{
+    {
         palavra[i] = tolower(palavra[i]);
     }
 }
