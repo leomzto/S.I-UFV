@@ -176,8 +176,6 @@ int main(void)
     return 0;
 }
 
-// Funções auxiliares (sem alteração, pois já estão corretas)
-
 int fatorial(int n)
 {
     int resultado = 1;
