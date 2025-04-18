@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #define MAX_NUM 100
 
@@ -51,6 +52,7 @@ int calculadora(void)
         {
             case 0:
                 printf("Saindo...\n");
+                sleep(2);
                 continuar = 'n';
                 continue;
 
