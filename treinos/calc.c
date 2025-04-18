@@ -382,22 +382,11 @@ int calcularMMC(int a, int b)
 
 void converterbase(int numero)
 {
-    int n;
-    printf("Decimal: %d\n", numero);
-    
-    printf("Binário: ");
-    int primeiro = 1;
-    for (n = 31; n >= 0; n--) {
-        int bit = (numero >> n) & 1;
-        if (bit == 1) {
-            primeiro = 0;
-        }
-        if (!primeiro) {
-            printf("%d", bit);
-        }
-    }
-    printf("\n");
+    char binario[33];
+    itoa(numero, binario, 2);
 
+    printf("Decimal: %d\n", numero);
+    printf("Binário: %s\n", binario);
     printf("Octal: %o\n", numero);
-    printf("Hexadecimal: %X\n", numero);
+    printf("Hexadecimal: %x\n", numero);
 }
