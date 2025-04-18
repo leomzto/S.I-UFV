@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include <stdlib.h>
 
 #define MAX_NUM 100
 
@@ -348,9 +347,10 @@ void primos(int numeros[], int qtd)
         int divisor;
         bool primo = true;
 
-        if (n <= 1) primo = false;
+        if (n <= 1)
+            primo = false;
 
-        for (divisor = 2; divisor * divisor <= n; divisor++)
+        for (divisor = 2; divisor <= n / 2; divisor++)
         {
             if (n % divisor == 0)
             {
@@ -362,7 +362,7 @@ void primos(int numeros[], int qtd)
         if (primo)
             printf("%d ", n);
     }
-    printf("\n");
+    printf(".\n");
 }
 
 int calcularMDC(int a, int b)
