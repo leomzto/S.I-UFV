@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #define MAX_NUM 100
 
@@ -382,11 +383,8 @@ int calcularMMC(int a, int b)
 
 void converterbase(int numero)
 {
-    char binario[33];
-    itoa(numero, binario, 2);
-
-    printf("Decimal: %d\n", numero);
-    printf("Binário: %s\n", binario);
-    printf("Octal: %o\n", numero);
-    printf("Hexadecimal: %x\n", numero);
+    printf("Decimal: %d.\n", numero);
+    printf("Binário: \n");
+    printf("Octal: %o.\n", numero);
+    printf("Hexadecimal: %X, %x.\n", numero, numero);
 }
