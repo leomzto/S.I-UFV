@@ -19,15 +19,17 @@ int main(void)
     bool posicao_valida;
     int vidas = VIDAS;
 
+    srand(time(NULL));
+
     inicializar(campo_real, '~');
     inicializar(campo_visivel, '~');
+
+    posicionarBombas(campo_real);
 
     while(1)
     {
         exibirCampo(campo_visivel);
         posicao_valida = false;
-
-        posicionarBombas(campo_real);
 
         while (!posicao_valida)
         {
