@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define TAM 3
+#define TAM 5
 #define NUM_BOMBAS (TAM * TAM) / 3
 #define VIDAS 3
 
@@ -19,19 +19,19 @@ int main(void)
     bool posicao_valida;
     int vidas = VIDAS;
 
-    srand(time(NULL));
+    // srand(time(NULL));
 
     inicializar(campo_real, '~');
     inicializar(campo_visivel, '~');
 
     posicionarBombas(campo_real);
 
-    while(1)
+    while(true)
     {
         exibirCampo(campo_visivel);
-        posicao_valida = false;
+        posicao_valida = true;
 
-        while (!posicao_valida)
+        while (posicao_valida)
         {
             printf("\nDigite a linha e a coluna para sua jogada: ");
             scanf("%d %d", &linha_escolhida, &coluna_escolhida);
@@ -42,19 +42,20 @@ int main(void)
             if(linha_escolhida >= 0 && linha_escolhida < TAM && coluna_escolhida >= 0 && coluna_escolhida < TAM && campo_real[linha_escolhida][coluna_escolhida] == '~')
                 {
                     campo_visivel[linha_escolhida][coluna_escolhida] = ' ';
-                    posicao_valida = true;
+                    posicao_valida = false;
                 }
-                else
+                else if (!posicao_valida)
                     printf("\nJogada repetida.\nEscolha outra posição.\n");
-            if (linha_escolhida >= 0 && linha_escolhida < TAM && coluna_escolhida >= 0 && coluna_escolhida < TAM && campo_real[linha_escolhida][coluna_escolhida] == '*')
+            if(linha_escolhida >= 0 && linha_escolhida < TAM && coluna_escolhida >= 0 && coluna_escolhida < TAM && campo_real[linha_escolhida][coluna_escolhida] == '*')
                 {
                     campo_visivel[linha_escolhida][coluna_escolhida] = 'X';
-                    posicao_valida = true;
+                    posicao_valida = false;
                     vidas -= 1;
                 }
-                else
-                    printf("\nJogada repetida.\nEscolha outra posição.\n");
+                else if (posicao_valida)
+                    printf("\nJogada repetidaaa.\nEscolha outra posição.\n");
         }
+        
         if (vidas == 0)
         {
             printf("Você perdeu as vidas.\n");
@@ -87,21 +88,22 @@ void exibirCampo(char campo[TAM][TAM])
         for(coluna = 0; coluna < TAM; coluna++)
         {
             printf(" %c ", campo[linha][coluna]);
-            if (coluna < 2) printf("|");
+            if (coluna < (TAM - 1)) printf("|");
         }
         printf("\n");
-        if (linha < 2) printf("---|---|---\n");
+        if (linha < (TAM - 1)) printf("---|---|---\n");
     }
 }
 
 void posicionarBombas(char campo[TAM][TAM])
 {
     int bombas = 0;
+    int linha, coluna;
 
     while (bombas < NUM_BOMBAS)
     {
-        int linha = rand() % TAM;
-        int coluna = rand() % TAM;
+        linha = rand() % TAM;
+        coluna = rand() % TAM;
 
         if(campo[linha][coluna]  != '*')
         {
