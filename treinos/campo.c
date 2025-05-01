@@ -62,7 +62,7 @@ int main(void)
                 break;
             }
         }
-        
+
         else
         {
             bombas_ao_redor = contarBombas(campo_real, linha_escolhida, coluna_escolhida);
@@ -97,18 +97,21 @@ void exibirCampo(char campo[TAM][TAM])
 {
     int c, linha, coluna;
 
-    printf("\n  ");
+    printf("\n    ");
     for (c = 0; c < TAM; c++)
-        printf(" %d ", c + 1);
-
+        printf(" %2d", c + 1);
     printf("\n");
+
+    printf("   ");
+    for (c = 0; c < TAM; c++)
+        printf("───");
+    printf("\n");
+
     for (linha = 0; linha < TAM; linha++) 
     {
-        printf("%d ", linha + 1);
-
+        printf(" %2d│", linha + 1);
         for (coluna = 0; coluna < TAM; coluna++) 
             printf(" %c ", campo[linha][coluna]);
-
         printf("\n");
     }
 }
