@@ -5,93 +5,112 @@
 
 #define TAM 5
 #define NUM_BOMBAS (TAM * TAM) / 3
-#define VIDAS 3
+#define VIDAS (NUM_BOMBAS - 1)
 
 void inicializar(char campo[TAM][TAM], char valor);
 void exibirCampo(char campo[TAM][TAM]);
 void posicionarBombas(char campo[TAM][TAM]);
+int contarBombas(char campo[TAM][TAM], int linha, int coluna);
 
 int main(void)
 {
     char campo_real[TAM][TAM];
     char campo_visivel[TAM][TAM];
     int linha_escolhida, coluna_escolhida;
-    bool posicao_valida;
     int vidas = VIDAS;
+    int jogadas = 0;
+    int espacos = TAM * TAM - NUM_BOMBAS;
+    int bombas_ao_redor;
 
-    // srand(time(NULL));
+    srand(time(NULL));
 
     inicializar(campo_real, '~');
     inicializar(campo_visivel, '~');
 
     posicionarBombas(campo_real);
 
-    while(true)
+    while (true)
     {
         exibirCampo(campo_visivel);
-        posicao_valida = true;
+        printf("\nVidas restantes: %d\n", vidas);
+        printf("Digite a linha e a coluna para sua jogada (1 a %d): ", TAM);
+        scanf("%d %d", &linha_escolhida, &coluna_escolhida);
 
-        while (posicao_valida)
+        linha_escolhida -= 1;
+        coluna_escolhida -= 1;
+
+        if (linha_escolhida < 0 || linha_escolhida >= TAM || coluna_escolhida < 0 || coluna_escolhida >= TAM) 
         {
-            printf("\nDigite a linha e a coluna para sua jogada: ");
-            scanf("%d %d", &linha_escolhida, &coluna_escolhida);
-
-            linha_escolhida -= 1;
-            coluna_escolhida -= 1;
-
-            if(linha_escolhida >= 0 && linha_escolhida < TAM && coluna_escolhida >= 0 && coluna_escolhida < TAM && campo_real[linha_escolhida][coluna_escolhida] == '~')
-                {
-                    campo_visivel[linha_escolhida][coluna_escolhida] = ' ';
-                    posicao_valida = false;
-                }
-                else if (!posicao_valida)
-                    printf("\nJogada repetida.\nEscolha outra posição.\n");
-            if(linha_escolhida >= 0 && linha_escolhida < TAM && coluna_escolhida >= 0 && coluna_escolhida < TAM && campo_real[linha_escolhida][coluna_escolhida] == '*')
-                {
-                    campo_visivel[linha_escolhida][coluna_escolhida] = 'X';
-                    posicao_valida = false;
-                    vidas -= 1;
-                }
-                else if (posicao_valida)
-                    printf("\nJogada repetidaaa.\nEscolha outra posição.\n");
+            printf("Posição inválida. Tente novamente.\n");
+            continue;
         }
-        
-        if (vidas == 0)
+
+        if (campo_visivel[linha_escolhida][coluna_escolhida] != '~') 
         {
-            printf("Você perdeu as vidas.\n");
-            break;
+            printf("Posição já escolhida. Tente outra.\n");
+            continue;
+        }
+
+        if (campo_real[linha_escolhida][coluna_escolhida] == '*') 
+        {
+            campo_visivel[linha_escolhida][coluna_escolhida] = 'X';
+            vidas--;
+            if (vidas == 0) 
+            {
+                printf("Você perdeu todas as vidas!\n");
+                break;
+            }
+        }
+        else
+        {
+            bombas_ao_redor = contarBombas(campo_real, linha_escolhida, coluna_escolhida);
+            campo_visivel[linha_escolhida][coluna_escolhida] = bombas_ao_redor + '0';
+            // campo_visivel[linha_escolhida][coluna_escolhida] = ' ';
+            jogadas++;
+            if (jogadas == espacos) 
+            {
+                printf("Parabéns! Você venceu o jogo!\n");
+                break;
+            }
         }
     }
- 
+
+    printf("\nCampo minado:\n");
+    exibirCampo(campo_real);
+
     return 0;
 }
 
-
 void inicializar(char campo[TAM][TAM], char valor)
 {
-    int l, c;
-
-    for (l = 0; l < TAM; l++)
+    for (int l = 0; l < TAM; l++) 
     {
-        for (c = 0; c < TAM; c++)
+        for (int c = 0; c < TAM; c++) 
         {
             campo[l][c] = valor;
         }
     }
 }
+
 void exibirCampo(char campo[TAM][TAM])
 {
-    int linha, coluna;
-
-    for(linha = 0; linha < TAM; linha++)
+    for (int linha = 0; linha < TAM; linha++) 
     {
-        for(coluna = 0; coluna < TAM; coluna++)
+        for (int coluna = 0; coluna < TAM; coluna++) 
         {
             printf(" %c ", campo[linha][coluna]);
-            if (coluna < (TAM - 1)) printf("|");
+            if (coluna < TAM - 1) printf("|");
         }
         printf("\n");
-        if (linha < (TAM - 1)) printf("---|---|---\n");
+        if (linha < TAM - 1)
+        {
+            for (int i = 0; i < TAM; i++)
+            {
+                printf("---");
+                if (i < TAM - 1) printf("|");
+            }
+            printf("\n");
+        }
     }
 }
 
@@ -105,10 +124,27 @@ void posicionarBombas(char campo[TAM][TAM])
         linha = rand() % TAM;
         coluna = rand() % TAM;
 
-        if(campo[linha][coluna]  != '*')
+        if (campo[linha][coluna] != '*')
         {
             campo[linha][coluna] = '*';
             bombas++;
         }
     }
+}
+
+int contarBombas(char campo[TAM][TAM], int linha, int coluna)
+{
+    int bombas = 0;
+    for (int l = linha - 1; l <= linha + 1; l++) 
+    {
+        for (int c = coluna - 1; c <= coluna + 1; c++) 
+        {
+            if (l >= 0 && l < TAM && c >= 0 && c < TAM) 
+            {
+                if (campo[l][c] == '*') 
+                    bombas++;
+            }
+        }
+    }
+    return bombas;
 }
