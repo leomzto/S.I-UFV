@@ -55,20 +55,23 @@ int main(void)
         {
             campo_visivel[linha_escolhida][coluna_escolhida] = 'X';
             vidas--;
+
             if (vidas == 0) 
             {
                 printf("Você perdeu todas as vidas!\n");
                 break;
             }
         }
+        
         else
         {
             bombas_ao_redor = contarBombas(campo_real, linha_escolhida, coluna_escolhida);
             campo_visivel[linha_escolhida][coluna_escolhida] = bombas_ao_redor + '0';
             jogadas++;
+
             if (jogadas == espacos) 
             {
-                printf("Parabéns! Você venceu o jogo!\n");
+                printf("Parabens! Você venceu o jogo!\n");
                 break;
             }
         }
@@ -85,10 +88,8 @@ void inicializar(char campo[TAM][TAM], char valor)
     int l, c;
     for (l = 0; l < TAM; l++) 
     {
-        for (c = 0; c < TAM; c++) 
-        {
+        for (c = 0; c < TAM; c++)
             campo[l][c] = valor;
-        }
     }
 }
 
@@ -97,12 +98,10 @@ void exibirCampo(char campo[TAM][TAM])
     int c, linha, coluna;
 
     printf("\n  ");
-
     for (c = 0; c < TAM; c++)
         printf(" %d ", c + 1);
 
     printf("\n");
-
     for (linha = 0; linha < TAM; linha++) 
     {
         printf("%d ", linha + 1);
@@ -113,7 +112,6 @@ void exibirCampo(char campo[TAM][TAM])
         printf("\n");
     }
 }
-
 
 void posicionarBombas(char campo[TAM][TAM])
 {
@@ -137,6 +135,7 @@ int contarBombas(char campo[TAM][TAM], int linha, int coluna)
 {
     int bombas = 0;
     int l, c;
+
     for (l = linha - 1; l <= linha + 1; l++) 
     {
         for (c = coluna - 1; c <= coluna + 1; c++) 
