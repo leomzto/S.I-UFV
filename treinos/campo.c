@@ -82,9 +82,10 @@ int main(void)
 
 void inicializar(char campo[TAM][TAM], char valor)
 {
-    for (int l = 0; l < TAM; l++) 
+    int l, c;
+    for (l = 0; l < TAM; l++) 
     {
-        for (int c = 0; c < TAM; c++) 
+        for (c = 0; c < TAM; c++) 
         {
             campo[l][c] = valor;
         }
@@ -93,25 +94,26 @@ void inicializar(char campo[TAM][TAM], char valor)
 
 void exibirCampo(char campo[TAM][TAM])
 {
-    for (int linha = 0; linha < TAM; linha++) 
+    int c, linha, coluna;
+
+    printf("\n  ");
+
+    for (c = 0; c < TAM; c++)
+        printf(" %d ", c + 1);
+
+    printf("\n");
+
+    for (linha = 0; linha < TAM; linha++) 
     {
-        for (int coluna = 0; coluna < TAM; coluna++) 
-        {
+        printf("%d ", linha + 1);
+
+        for (coluna = 0; coluna < TAM; coluna++) 
             printf(" %c ", campo[linha][coluna]);
-            if (coluna < TAM - 1) printf("|");
-        }
+
         printf("\n");
-        if (linha < TAM - 1)
-        {
-            for (int i = 0; i < TAM; i++)
-            {
-                printf("---");
-                if (i < TAM - 1) printf("|");
-            }
-            printf("\n");
-        }
     }
 }
+
 
 void posicionarBombas(char campo[TAM][TAM])
 {
@@ -134,9 +136,10 @@ void posicionarBombas(char campo[TAM][TAM])
 int contarBombas(char campo[TAM][TAM], int linha, int coluna)
 {
     int bombas = 0;
-    for (int l = linha - 1; l <= linha + 1; l++) 
+    int l, c;
+    for (l = linha - 1; l <= linha + 1; l++) 
     {
-        for (int c = coluna - 1; c <= coluna + 1; c++) 
+        for (c = coluna - 1; c <= coluna + 1; c++) 
         {
             if (l >= 0 && l < TAM && c >= 0 && c < TAM) 
             {
