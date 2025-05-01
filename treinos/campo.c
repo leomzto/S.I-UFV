@@ -74,7 +74,7 @@ int main(void)
         }
     }
 
-    printf("\nCampo minado:\n");
+    printf("\nCAMPO MINADO:\n");
     exibirCampo(campo_real);
 
     return 0;
