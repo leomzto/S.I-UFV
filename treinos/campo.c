@@ -24,7 +24,7 @@ int main(void)
 
     srand(time(NULL));
 
-    inicializar(campo_real, '~');
+    inicializar(campo_real, ' ');
     inicializar(campo_visivel, '~');
 
     posicionarBombas(campo_real);
@@ -65,7 +65,6 @@ int main(void)
         {
             bombas_ao_redor = contarBombas(campo_real, linha_escolhida, coluna_escolhida);
             campo_visivel[linha_escolhida][coluna_escolhida] = bombas_ao_redor + '0';
-            // campo_visivel[linha_escolhida][coluna_escolhida] = ' ';
             jogadas++;
             if (jogadas == espacos) 
             {
