@@ -1,0 +1,378 @@
+Aula Prática 06
+
+Nome: Leonardo Padovani Manzato
+Matricula: 9862
+
+Ex1: 
+
+==============
+
+#include <stdio.h>
+
+struct Hora
+{
+    int horas;
+    int minutos;
+    int segundos;
+};
+
+int main(void)
+{
+    struct Hora horario;
+
+    printf("Entre com a hora: ");
+    scanf("%d", &horario.horas);
+
+    printf("Entre com os minutos: ");
+    scanf("%d", &horario.minutos);
+
+    printf("Entre com os segundos: ");
+    scanf("%d", &horario.segundos);
+
+    printf("%d:%d:%d\n", horario.horas, horario.minutos, horario.segundos);
+
+    return 0;
+}
+
+
+==============
+
+Ex2: 
+
+==============
+
+#include <stdio.h>
+
+struct End
+{
+    char rua[20];
+    int numero;
+    char cidade[20];
+    char estado[3];
+    int CEP;
+};
+
+int main(void)
+{
+    struct End endereco;
+
+    printf("Rua: ");
+    gets(endereco.rua);
+
+    printf("Número: ");
+    scanf("%d", &endereco.numero);
+    getchar();
+
+    printf("Cidade: ");
+    gets(endereco.cidade);
+
+    printf("Estado: ");
+    gets(endereco.estado);
+
+    printf("CEP: ");
+    scanf("%d", &endereco.CEP);
+    getchar();
+
+    printf("\nENDEREÇO:\n");
+    printf("%s, %d - %s - %s\n", endereco.rua, endereco.numero, endereco.cidade, endereco.estado);
+    printf("CEP: %d\n", endereco.CEP);
+
+    return 0;
+}
+
+
+==============
+
+Ex3: 
+
+==============
+
+#include <stdio.h>
+
+struct Pessoa
+{
+    char nome[20];
+    char sexo[2];
+    float peso;
+
+    struct Data
+    {
+        int dia, mes, ano;
+    } dt;
+
+    struct End
+    {
+        char rua[20];
+        int numero;
+        char cidade[20];
+        char estado[3];
+        int CEP;
+    } end;
+};
+
+int main(void)
+{
+    struct Pessoa pss;
+
+    printf("Nome: ");
+    gets(pss.nome);
+
+    printf("Sexo: ");
+    gets(pss.sexo);
+
+    printf("Peso: ");
+    scanf("%f", &pss.peso);
+    getchar();
+
+    printf("Dia Nascimento: ");
+    scanf("%d", &pss.dt.dia);
+    getchar();
+
+    printf("Mes Nascimento: ");
+    scanf("%d", &pss.dt.mes);
+    getchar();
+
+    printf("Ano Nascimento: ");
+    scanf("%d", &pss.dt.ano);
+    getchar();
+
+    printf("Rua: ");
+    gets(pss.end.rua);
+
+    printf("Número da rua: ");
+    scanf("%d", &pss.end.numero);
+    getchar();
+
+    printf("Cidade: ");
+    gets(pss.end.cidade);
+
+    printf("Estado: ");
+    gets(pss.end.estado);
+
+    printf("CEP: ");
+    scanf("%d", &pss.end.CEP);
+    getchar();
+
+    printf("\nDados:\n");
+    printf("Nome: %s\nSexo: %s\nPeso: %.2f\nNascimento: %d/%d/%d\nRua: %s, %d, %s - %s\nCEP: %d\n", pss.nome, pss.sexo, pss.peso, pss.dt.dia, pss.dt.mes, pss.dt.ano, pss.end.rua, pss.end.numero, pss.end.cidade, pss.end.estado, pss.end.CEP);
+
+    return 0;
+}
+
+
+==============
+
+Ex4: 
+
+==============
+
+#include <stdio.h>
+
+#define MEDIA 60.0f
+
+struct Alunos
+{
+    char nome[20];
+    int matricula;
+    float nota_p1, nota_p2, nota_p3;
+};
+
+int main(void)
+{
+    struct Alunos al[5];
+    float soma[5] = {0}; 
+    float media[5] = {0};
+    float maior_p1, maior_media, menor_media;
+    
+    int p1maior = 0, media_maior = 0, media_menor = 0;
+
+    int i;
+
+    for (i = 0; i < 5; i++)
+    {
+        printf("Nome 0%d: ", i + 1);
+        gets(al[i].nome);
+
+        printf("Matricula 0%d: ", i + 1);
+        scanf("%d", &al[i].matricula);
+        getchar();
+
+        printf("Nota P1 0%d: ", i + 1);
+        scanf("%f", &al[i].nota_p1);
+        getchar();
+
+        printf("Nota P2 0%d: ", i + 1);
+        scanf("%f", &al[i].nota_p2);
+        getchar();
+
+        printf("Nota P3 0%d: ", i + 1);
+        scanf("%f", &al[i].nota_p3);
+        getchar();
+    }
+
+    maior_p1 = al[0].nota_p1;
+    for (i = 1; i < 5; i++)
+    {
+        if (al[i].nota_p1 > maior_p1)
+        {
+            maior_p1 = al[i].nota_p1;
+            p1maior = i;
+        }
+    }
+
+    for (i = 0; i < 5; i++)
+    {
+        soma[i] = al[i].nota_p1 + al[i].nota_p2 + al[i].nota_p3;
+        media[i] = soma[i] / 3;
+    }
+
+    maior_media = menor_media = media[0];
+    for (i = 1; i < 5; i++)
+    {
+        if (media[i] > maior_media)
+        {
+            maior_media = media[i];
+            media_maior = i;
+        }
+        
+        if (media[i] < menor_media)
+        {
+            menor_media = media[i];
+            media_menor = i;
+        }
+    }
+
+    printf("Maior Nota P1:\n%s\n", al[p1maior].nome);
+    printf("Maior Media:\n%s\n", al[media_maior].nome);
+    printf("Menor Media:\n%s\n", al[media_menor].nome);
+    for (i = 0; i < 5; i++)
+    {
+        printf("%s -> %s\n", al[i].nome, media[i] >= MEDIA ? "APROVADO" : "REPROVADO");
+    }
+
+    return 0;
+
+}
+
+
+==============
+
+Ex5: 
+
+==============
+
+#include <stdio.h>
+#include <ctype.h>
+
+struct Cadastro
+{
+    char nome[20];
+    char sexo[10];
+    char estado_civil[20];
+    int idade, CPF, identidade, telefone;
+    float salario;
+
+    struct Endereco
+    {
+        char rua[50];
+        int numero;
+        char bairro[20];
+        char complemento[20];
+        char cidade[20];
+        char estado[3];
+        int CEP;
+    } end;
+};
+
+int main(void)
+{
+    struct Cadastro cad[7];
+
+    int maior_idade, i_maior_idade = 0;
+
+    int i;
+
+    for (i = 0; i < 7; i++)
+    {
+        printf("Cadastro %d:\n", i + 1);
+        
+        printf("Nome > ");
+        gets(cad[i].nome);
+        cad[i].nome[0] = toupper(cad[i].nome[0]);
+        
+        printf("Sexo (M | F) > ");
+        gets(cad[i].sexo);
+        cad[i].sexo[0] = toupper(cad[i].sexo[0]);
+        
+        printf("Idade > ");
+        scanf("%d", &cad[i].idade);
+        getchar();
+        
+        printf("Identidade > ");
+        scanf("%d", &cad[i].identidade);
+        getchar();
+        
+        printf("CPF > ");
+        scanf("%d", &cad[i].CPF);
+        getchar();
+        
+        printf("Estado Civil > ");
+        gets(cad[i].estado_civil);
+        
+        printf("Telefone > ");
+        scanf("%d", &cad[i].telefone);
+        getchar();
+        
+        printf("Salario > R$");
+        scanf("%f", &cad[i].salario);
+        getchar();
+        
+        printf("Endereço:\n");
+        printf("Rua > ");
+        gets(cad[i].end.rua)
+        printf("Numero > ");
+        scanf("%d", &cad[i].end.numero);
+        getchar();
+        printf("Complemento > ");
+        gets(cad[i].end.complemento);
+        printf("Bairro > ");
+        gets(cad[i].end.bairro);
+        printf("Cidade > ");
+        gets(cad[i].end.cidade);
+        printf("Estado > ");
+        gets(cad[i].end.estado);
+
+        printf("CEP > ");
+        scanf("%d", &cad[i].end.CEP);
+        getchar();
+    }
+
+    maior_idade = cad[0].idade;
+    for (i = 1; i < 7; i++)
+    {
+        if (cad[i].idade > maior_idade)
+        {
+            maior_idade = cad[i].idade;
+            i_maior_idade = i;
+        }
+    }
+
+    printf("Homens:\n");
+    for (i = 0; i < 7; i++)
+    {
+        if (cad[i].sexo[0] == 'M')
+            printf("%s\n", cad[i].nome);
+    }
+
+    printf("Salarios acima de R$1.000:\n");
+    for (i = 0; i < 7; i++)
+    {
+        if (cad[i].salario > 1000.00)
+            printf("%s: R$%.2f\n", cad[i].nome, cad[i].salario);
+    }
+
+    return 0;
+}
+
+
+==============
