@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-struct Cadastro
+typedef struct 
 {
     char nome[20];
     char sexo[10];
@@ -19,11 +19,11 @@ struct Cadastro
         char estado[3];
         int CEP;
     } end;
-};
+} Cadastro;
 
 int main(void)
 {
-    struct Cadastro cad[7];
+    Cadastro cad[7];
 
     int maior_idade, i_maior_idade = 0;
 
