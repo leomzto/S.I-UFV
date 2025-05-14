@@ -1,0 +1,270 @@
+Aula Prática x
+
+Nome: Leonardo Padovani Manzato
+Matricula: 9862
+
+Ex1: 
+
+==============
+
+#include <stdio.h>
+
+void printInfos(void);
+
+int main(void)
+{
+    printInfos();    
+
+    return 0;
+}
+
+void printInfos(void)
+{
+    printf("==================================\n");
+    printf("+Programação (SIN110)+\n");
+    printf("+---------------------------------------------------------+\n");
+    printf("+Universidade Federal de Vicosa+\n");
+    printf("+Campus Rio Paranaiba+\n");
+    printf("==================================\n");
+}
+
+
+==============
+
+Ex2: 
+
+==============
+
+#include <stdio.h>
+
+typedef struct
+{
+    int dia, mes, ano;
+} Data;
+
+void exibirData(Data dt);
+
+int main(void)
+{
+    int dia, mes, ano;
+    printf("Entre com a data.\nFormatação: dia/mes/ano\n >>> ");
+    scanf("%d/%d/%d", &dia, &mes, &ano);
+
+    Data data;
+    data.dia = dia;
+    data.mes = mes;
+    data.ano = ano;
+
+    exibirData(data);
+}
+
+void exibirData(Data dt)
+{
+    char *meses[13] = {"", "janeiro", "fevereiro", "março", "abril", "maio",
+                   "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+
+    if (dt.mes >= 1 && dt.mes <= 12)
+        printf("%d de %s de %d\n", dt.dia, meses[dt.mes], dt.ano);
+    else
+    {
+        printf("Mês inválido.\n");
+    }
+}
+
+
+==============
+
+Ex3: 
+
+==============
+
+#include <stdio.h>
+
+float retornaMenor(float n1, float n2);
+
+int main(void)
+{
+    float n1, n2;
+
+    printf("Entre com dois números.\nFormatação: n1 n2:\n >>> ");
+    scanf("%f %f", &n1, &n2);
+
+    printf("O menor número entre %.2f e %.2f é: %.2f\n", n1, n2, retornaMenor(n1, n2));
+    
+    return 0;
+}
+
+float retornaMenor(float n1, float n2)
+{
+    float menor = n1;
+    if (n2 < menor)
+        menor = n2;
+
+    return menor;
+}
+
+
+==============
+
+Ex4: 
+
+==============
+
+#include <stdio.h>
+void consumoKmL(int km, int l);
+
+int main(void)
+{
+    int km, l;
+    
+    printf("Entre com o Km: ");
+    scanf("%d", &km);
+    printf("Entre com os litros: ");
+    scanf("%d", &l);
+
+    printf("Consumo Km/L:\n %d/%d = %d\n", km, l, km/l);
+    consumoKmL(km, l);
+
+    return 0;
+}
+
+void consumoKmL(int km, int l)
+{
+    int consumo = km/l;
+
+    if (consumo < 8)
+        puts("Venda o carro");
+    else if (consumo >= 8 && consumo <= 14)
+        puts("Econômico!");
+    else if(consumo > 14)
+        puts("Super econômico");
+}
+
+
+==============
+
+Ex5: 
+
+==============
+
+#include <stdio.h>
+
+void retornoSerie(int N);
+
+int main(void)
+{
+    int N;
+    
+    printf("Insira o valor de N: ");
+    scanf("%d", &N);
+
+    retornoSerie(N);
+
+    return 0;
+}
+
+void retornoSerie(int num)
+{
+    int N;
+    float soma = 0.0;
+
+    if (num <= 0) {
+        puts("N deve ser maior que 0.");
+        return;
+    }
+
+    printf("S = ");
+    for (N = 1; N <= num; N++)
+    {
+        int numerador = (N * N) + 1;
+        int denominador = N + 3;
+        float formula = (float)numerador / denominador;
+        
+        soma += formula;
+        
+        printf("%d/%d", numerador, denominador);
+        if (N < num) 
+            printf(" + ");
+    }
+    
+    printf("\nS = %.2f\n", soma);
+}
+
+
+==============
+
+Ex6:
+
+==============
+
+#include <stdio.h>
+
+float somaDiag2(float mat[5][5]);
+
+int main(void)
+{
+    float matriz[5][5];
+    int l, c;
+
+    for (l = 0; l < 5; l++)
+    {
+        for (c = 0; c < 5; c++)
+        {
+            printf("Entre com o elemento [%d][%d]: ", l + 1, c + 1);
+            scanf("%f", &matriz[l][c]);
+        }
+    }
+
+    printf("A soma da diagonal secundaria dessa matriz[5][5] é:\n >>> %.2f\n", somaDiag2(matriz));
+
+    return 0;
+}
+
+float somaDiag2(float mat[5][5])
+{
+    int l, c;
+    float soma = 0.0;
+
+    soma += mat[0][4] + mat [1][3] + mat[2][2] + mat[3][1] + mat[4][0];
+
+    return soma;
+}
+
+
+==============
+
+Ex7:
+
+==============
+
+#include <stdio.h>
+
+void tamanho(char *str, int *strsize);
+
+int main(void)
+{
+    char String[100];
+    int comprimento;
+
+    printf("Entre com a string: ");
+    fgets(String, sizeof(String), stdin);
+
+    tamanho(String, &comprimento);
+
+    printf("A string inserida possui: %d caracteres.\n", comprimento);
+
+    return 0;
+}
+
+void tamanho(char *str, int *strsize)
+{
+    int comprimento = 0;
+
+    while (str[comprimento] != '\0' && str[comprimento] != '\n')
+        comprimento++;
+
+    *strsize = comprimento;
+}
+
+
+==============
