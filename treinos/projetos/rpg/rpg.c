@@ -8,11 +8,14 @@
 
 #define NUM_CLASSES 6
 #define NUM_INIMIGOS 12
+#define NIVEL_MAX 10
+#define TAMANHO_BARRA 20
+#define NUM_ANDARES 5
 
 typedef struct
 {
     char nome[20];
-    float vida, ataque, defesa;
+    float vida, dano, defesa;
 } Classe;
 const Classe CLASSES[] = {
     {"Guerreiro", 120.0f, 20.0f, 15.0f},
@@ -26,13 +29,14 @@ const Classe CLASSES[] = {
 typedef struct {
     char nome[50];
     Classe classe;
-    float vida, ataque, defesa;
+    float vida, dano, defesa;
+    float vida_max, dano_max, defesa_max;
 } Personagem;
 
 typedef struct
 {
     char nome[50];
-    float vida, ataque, defesa;
+    float vida, dano, defesa;
 
     float chances_de_aparecer;
 } Inimigo;
@@ -51,14 +55,25 @@ const Inimigo INIMIGOS[] = {
     {"Lorde Demonio", 500.0f, 50.0f, 25, 0.5f}
 };
 
-// prototipos das funçoes
+typedef struct
+{
+    int andar_atual, andares_completos;
+    bool ativa;
+    Inimigo inimigos_masmorra[NUM_ANDARES];
+} Masmorra;
+
+// prototipos
 void limparBuffer(void);
 
 int menu(void);
+void novoJogo(Personagem p);
 Personagem criarPersonagem(void);
-Inimigo gerarInimigos(void);
 void iniciarBatalha(Personagem *p, Inimigo *i);
-void iniciarJogo(Personagem p);
+Inimigo gerarInimigos(void);
+void desafiarMasmorra(Personagem *p, Masmorra *m);
+Inimigo gerarInimigosMasmorra(int andar);
+void mostrarStatus(Personagem *p);
+void barraVida(char *nome, float vida_atual, float vida_max);
 
 // main
 int main(void)
@@ -75,7 +90,7 @@ int main(void)
         if(opcao == 1)
         {
             p = criarPersonagem();
-            iniciarJogo(p);
+            novoJogo(p);
         }
         else if(opcao == 2)
         {
@@ -175,7 +190,7 @@ Personagem criarPersonagem(void)
     puts("\n\nEscolha sua classe:");
     for (i = 0; i < NUM_CLASSES; i++)
         printf("%d. %s | HP: %.1f | ATQ: %.1f | DEF: %.1f\n",
-                i + 1, CLASSES[i].nome, CLASSES[i].vida, CLASSES[i].ataque, CLASSES[i].defesa);
+                i + 1, CLASSES[i].nome, CLASSES[i].vida, CLASSES[i].dano, CLASSES[i].defesa);
 
     while(!classe_valida)
     {
@@ -211,10 +226,171 @@ Personagem criarPersonagem(void)
     }
 
     p.vida = p.classe.vida;
-    p.ataque = p.classe.ataque;
+    p.dano = p.classe.dano;
     p.defesa = p.classe.defesa;
 
+    p.vida_max = p.classe.vida;
+    p.dano_max = p.classe.dano;
+    p.defesa_max = p.classe.defesa;
+
     return p;
+}
+
+void novoJogo(Personagem p)
+{
+    while(p.vida > 0)
+    {
+        int escolha;
+        puts("\nO que voce que fazer agora?");
+        puts("1. Procurar monstros");
+        puts("2. Desafiar masmorra");
+        printf("3. Ver [%s]\n", p.nome);
+        puts("0. Voltar ao menu");
+        printf("Escolha -> ");
+        scanf("%d", &escolha);
+        limparBuffer();
+
+        switch(escolha)
+        {
+            case 0:
+                return;
+            case 1:
+            {
+                Inimigo inimigo = gerarInimigos();
+                iniciarBatalha(&p, &inimigo);
+                break;
+            }
+            case 2:
+            {
+                Masmorra m;
+                desafiarMasmorra(&p, &m);
+                break;
+            }
+            case 3:
+            {
+                mostrarStatus(&p);
+                break;
+            }
+        }
+    }
+}
+
+void iniciarBatalha(Personagem *p, Inimigo *i)
+{
+    char escolha_jogador[20];
+    float vida_maxima_p = (*p).classe.vida;
+    float vida_maxima_i = (*i).vida;
+
+    float golpe_jogador = (*p).dano - (*i).defesa;
+    if(golpe_jogador < 1) golpe_jogador = 1;
+    float golpe_inimigo = (*i).dano - (*p).defesa;
+    if(golpe_inimigo < 1) golpe_inimigo = 1;
+
+    int j;
+    puts("\nProcurando inimigos");
+    for(j = 0; j < 10; j++) {
+        usleep(250000);
+        putchar('.');
+        fflush(stdout);
+    }
+    sleep(1);
+    puts("\n\nInimigo encontrado.");
+    puts("Iniciando batalha");
+    for(j = 0; j < 10; j++) {
+        usleep(250000);
+        putchar('.');
+        fflush(stdout);
+    }
+    sleep(2);
+    system("clear");
+
+    barraVida((*p).nome, (*p).vida, vida_maxima_p);
+    puts("");
+    barraVida((*i).nome, (*i).vida, vida_maxima_i);
+
+    while((*p).vida > 0 && (*i).vida > 0)
+    {
+        puts("\n1. Atacar");
+        puts("2. Correr");
+
+        while(1) {
+            printf("Eu escolho ");
+            fgets(escolha_jogador, sizeof(escolha_jogador), stdin);
+            escolha_jogador[strcspn(escolha_jogador, "\n")] = '\0';
+
+            for(j = 0; escolha_jogador[j]; j++)
+                escolha_jogador[j] = tolower(escolha_jogador[j]);
+
+            // escolheu atacar
+            if(strcasecmp(escolha_jogador, "atacar") == 0) {
+                // vez do jogador
+                printf("\nAtacando %s [", (*i).nome);
+                for(j = 0; j < 7; j++) {
+                    usleep(250000);
+                    printf(">");
+                    fflush(stdout);
+                }
+                puts("]");
+                sleep(1);
+                (*i).vida -= golpe_jogador;
+                if ((*i).vida < 0) (*i).vida = 0;
+                
+                system("clear");
+                barraVida((*p).nome, (*p).vida, vida_maxima_p);
+                puts("");
+                barraVida((*i).nome, (*i).vida, vida_maxima_i);
+                printf("\nVoce atacou %s e causou %.1f de dano.\n",
+                     (*i).nome, golpe_jogador);
+
+                // vez do inimigo
+                if((*i).vida > 0) {
+                    printf("%s esta te atacando [", (*i).nome);
+                    for(j = 0; j < 7; j++) {
+                        usleep(250000);
+                        printf(">");
+                        fflush(stdout);
+                    }
+                    puts("]");
+                    sleep(1);
+                    (*p).vida -= golpe_inimigo;
+                    if ((*p).vida < 0) (*p).vida = 0;
+                    
+                    system("clear");
+                    barraVida((*p).nome, (*p).vida, vida_maxima_p);
+                    puts("");
+                    barraVida((*i).nome, (*i).vida, vida_maxima_i);
+                    printf("\n%s realizou um contra ataque causando %.1f de dano.\n", 
+                    (*i).nome, golpe_inimigo);
+                }
+                break;
+            }
+            // escolheu correr
+            else if(strcasecmp(escolha_jogador, "correr") == 0) {
+                puts("Voce escolheu correr, seu cagao.");
+                sleep(2);
+                system("clear");
+                return;
+            }
+            else {
+                puts("\nEscolha invalida.\nVoce so pode atacar ou correr.\n");
+            }
+        }
+
+        if((*i).vida <= 0) {
+            printf("\nVoce venceu a luta contra %s!\n", (*i).nome);
+            sleep(2);
+            system("clear");
+            break;
+        }
+        else if((*p).vida <= 0) {
+            printf("\nVoce perdeu a luta contra %s.\n", (*i).nome);
+            sleep(2);
+            system("clear");
+            puts("Game Over");
+            sleep(2);
+            exit(0);
+        }
+    }
 }
 
 Inimigo gerarInimigos(void)
@@ -240,161 +416,170 @@ Inimigo gerarInimigos(void)
     
 }
 
-void iniciarBatalha(Personagem *p, Inimigo *i)
+void desafiarMasmorra(Personagem *p, Masmorra *m)
 {
-    char escolha_jogador[20];
-
-    float golpe_jogador = (*p).ataque - (*i).defesa;
-    if(golpe_jogador < 1) golpe_jogador = 1;
-    float golpe_inimigo = (*i).ataque - (*p).defesa;
-    if(golpe_inimigo < 1) golpe_inimigo = 1;
-
     int j;
-    puts("\nProcurando inimigos");
-    for(j = 0; j < 10; j++)
+    int i;
+
+    if(!(*m).ativa)
+    {
+        (*m).ativa = true;
+        (*m).andar_atual = 0;
+        (*m).andares_completos = 0;
+
+        for(i = 0; i < NUM_ANDARES; i++)
+            (*m).inimigos_masmorra[i] = gerarInimigosMasmorra(i);
+
+    
+        puts("\nEntrando na masmorra");
+        for(j = 0; j < 10; j++)
         {
             usleep(250000);
             putchar('.');
             fflush(stdout);
         }
+        sleep(2);
+        system("clear");
+        puts("\n\nVoce entrou!\nTome cuidado.");
+    }
+
+    if((*m).andar_atual >= NUM_ANDARES)
+    {
+        puts("\nParabens, voce completou a masmorra.");
+        (*m).ativa = false;
+
+        (*p).vida = (*p).classe.vida;
+        (*p).dano += 5;
+
+        return;
+    }
+
+    printf("\nAndar [%d]/[%d]\n", (*m).andar_atual + 1, NUM_ANDARES);
+    puts("\n\nExplorando");
+    for(j = 0; j < 10; j++)
+    {
+        usleep(250000);
+        putchar('.');
+        fflush(stdout);
+    }
     sleep(1);
     puts("\n\nInimigo encontrado.");
     puts("Iniciando batalha");
     for(j = 0; j < 10; j++)
+    {
+        usleep(250000);
+        putchar('.');
+        fflush(stdout);
+    }
+    sleep(2);
+    puts("");
+
+    Inimigo* inimigo_atual = &(*m).inimigos_masmorra[(*m).andar_atual];
+    barraVida((*p).nome, (*p).vida, (*p).classe.vida);
+    puts("");
+    barraVida((*inimigo_atual).nome, (*inimigo_atual).vida, (*inimigo_atual).vida);
+
+    char escolha[20];
+    puts("\n1. Atacar");
+    puts("2. Sair");
+    printf("Eu escolho ");
+    fgets(escolha, sizeof(escolha), stdin);
+    escolha[strcspn(escolha, "\n")] = '\0';
+                
+    for(j = 0; escolha[j]; j++)
+        escolha[j] = tolower(escolha[j]);
+
+    // escolheu atacar
+    if(strcasecmp(escolha, "atacar") == 0)
+    {
+        // vez do jogador
+        printf("\nAtacando %s [", inimigo_atual->nome);
+        for(j = 0; j < 7; j++)
         {
             usleep(250000);
-            putchar('.');
+            printf(">");
             fflush(stdout);
         }
-    sleep(2);
-    system("clear");
+        puts("]");
+        sleep(1);
+        iniciarBatalha(p, inimigo_atual);
 
-    printf("%s - %.1f HP\nVS.\n%s - %.1f HP\n",
-         (*p).nome, (*p).vida, (*i).nome, (*i).vida);
-
-    while((*p).vida > 0 && (*i).vida > 0)
-    {
-        // encontro com o inimigo
-        puts("\n1. Atacar");
-        puts("2. Correr");
-        
-        while(1)
+        if ((*p).vida > 0 && inimigo_atual->vida <= 0)
         {
-            printf("Eu escolho ");
-            fgets(escolha_jogador, sizeof(escolha_jogador), stdin);
-            escolha_jogador[strcspn(escolha_jogador, "\n")] = '\0';
+            printf("\n%s derrotou o inimigo do andar %d!\n", (*p).nome, (*m).andar_atual + 1);
+            (*m).andar_atual++;
             
-            for(j = 0; escolha_jogador[j]; j++)
-                escolha_jogador[j] = tolower(escolha_jogador[j]);
-
-            // escolheu atacar
-            if(strcasecmp(escolha_jogador, "atacar") == 0)
-            {
-                // vez do jogador
-                printf("\nAtacando %s [", (*i).nome);
-                for(j = 0; j < 7; j++)
-                {
-                    usleep(250000);
-                    printf(">");
-                    fflush(stdout);
-                }
-                puts("]");
-                sleep(1);
-                (*i).vida -= golpe_jogador;
-                printf("Voce atacou %s e causou %.1f de dano.\n%s agora tem %.1f HP\n\n",
-                     (*i).nome, golpe_jogador, (*i).nome, (*i).vida);
-
-                // vez do inimigo
-                if((*i).vida > 0)
-                {
-                    printf("%s esta te atacando [", (*i).nome);
-                    for(j = 0; j < 7; j++)
-                    {
-                        usleep(250000);
-                        printf(">");
-                        fflush(stdout);
-                    }
-                    puts("]");
-                    sleep(1);
-                    (*p).vida -= golpe_inimigo;
-                    printf("%s realizou um contra ataque causando %.1f de dano.\nVoce agora tem %.1f de vida\n\n", 
-                    (*i).nome, golpe_inimigo, (*p).vida);
-                }
-                break;
-            }
-            // escolheu correr
-            else if(strcasecmp(escolha_jogador, "correr") == 0)
-            {
-                puts("Voce escolheu correr, seu cagao.");
-                sleep(2);
-                system("clear");
-                return;
-            }
-            else
-                puts("\nEscolha invalida.\nVoce so pode atacar ou correr.\n");
-        }
-
-        if((*i).vida <= 0)
-        {
-            printf("Voce venceu a luta contra %s!\n", (*i).nome);
-            sleep(2);
-            system("clear");
-            break;
-        }
-        else if((*p).vida <= 0)
-        {
-            printf("Voce perdeu a luta contra %s.\n", (*i).nome);
-            sleep(2);
-            system("clear");
-            puts("Game Over");
-            sleep(2);
-            exit(0);
+            (*p).vida += (*p).classe.vida * 0.3;
+            if ((*p).vida > (*p).classe.vida) 
+                (*p).vida = (*p).classe.vida;
         }
     }
-}
-
-void iniciarJogo(Personagem p)
-{
-    while(p.vida > 0)
+    else if(strcasecmp(escolha, "sair") == 0)
     {
-        int escolha;
-        puts("");
-        puts("O que voce que fazer agora?");
-        puts("1. Procurar monstros");
-        printf("2. Ver [%s]\n", p.nome);
-        puts("3. Voltar ao menu");
-        printf("Escolha -> ");
-        scanf("%d", &escolha);
-        limparBuffer();
-
-        if(escolha == 1)
-        {
-            Inimigo inimigo = gerarInimigos();
-            iniciarBatalha(&p, &inimigo);
-        }
-        else if(escolha == 2)
-        {
-            int i;
-            printf("\nCarregando status: [");
-            for(i = 0; i < 7; i++)
-            {
-                usleep(250000);
-                printf("#");
-                fflush(stdout);
-            }
-            puts("] 100%");
-            sleep(1);
-
-            puts("");
-            printf("Nome: %s\n", p.nome);
-            printf("Classe: %s\n", p.classe.nome);
-            printf("Vida: %.1f\n", p.vida);
-            printf("Ataque: %1.f\n", p.ataque);
-            printf("Defesa: %.1f\n", p.defesa);
-            puts("");
-            usleep(2500000);
-        }
-        else if(escolha == 3)
-            return;
+        puts("Voce escolheu correr, seu cagao.");
+        (*m).ativa = false;
+        sleep(2);
+        system("clear");
+        return;
+    }
+    else
+    {
+        puts("\nEscolha invalida.\nVoce so pode atacar ou correr.\n");
     }
 }
+
+Inimigo gerarInimigosMasmorra(int andar)
+{
+    Inimigo inimigo = gerarInimigos();
+
+    float dificuldade = 1.0 + (andar * 0.2);
+    inimigo.vida *= dificuldade;
+    inimigo.dano *= dificuldade;
+    inimigo.defesa *= dificuldade;
+
+    return inimigo;
+}
+
+void mostrarStatus(Personagem *p)
+{
+    system("clear");
+    printf("\nNome: %s", (*p).nome);
+    printf("\nClasse: %s", (*p).classe.nome);
+    printf("\nNivel: <nivel>");
+
+    barraVida("\nVida", (*p).vida, (*p).classe.vida);
+    printf("\nDano: %.1f", (*p).dano);
+    printf("\nDefesa: %.1f", (*p).defesa);
+
+    char escolha;
+    puts("\nDeseja abrir o inventario?");
+    puts("S / N --> ");
+    scanf(" %c", &escolha);
+    escolha = tolower(escolha);
+
+    if(escolha == 's')
+    {
+        puts("<abrir inventario>");
+    }
+    
+    limparBuffer();
+}
+
+void barraVida(char *nome, float vida_atual, float vida_max)
+{
+    int hp = (int)((vida_atual / vida_max) * TAMANHO_BARRA);
+
+    if(vida_atual > 0 && hp == 0)
+        hp = 1;
+
+    printf("%s - [", nome);
+    int i;
+    for(i = 0; i < hp; i++)
+        printf("+");
+
+    for(i = hp; i < TAMANHO_BARRA; i++)
+        printf("-");
+
+    printf("] (%.1f/%.1f)", vida_atual, vida_max);
+}
+
