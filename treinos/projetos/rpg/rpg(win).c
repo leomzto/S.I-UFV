@@ -582,4 +582,3 @@ void barraVida(char *nome, float vida_atual, float vida_max)
 
     printf("] (%.1f/%.1f)", vida_atual, vida_max);
 }
-

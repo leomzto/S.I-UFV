@@ -6,11 +6,11 @@
 #include <time.h>
 #include <unistd.h>
 
-#define NUM_CLASSES 6
-#define NUM_INIMIGOS 12
-#define NIVEL_MAX 10
-#define TAMANHO_BARRA 20
-#define NUM_ANDARES 5
+#define NUM_CLASSES 6 // classes
+#define NUM_INIMIGOS 12 // inimigos
+#define NIVEL_MAX 10 // barraXP
+#define TAMANHO_BARRA 20 // barraVida
+#define NUM_ANDARES 5 // andares masmorra
 
 typedef struct
 {
