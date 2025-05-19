@@ -1,28 +1,32 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
-LDFLAGS = -lm  # Biblioteca matemática
+LDFLAGS = -lm
 
-# Encontrar todos os arquivos .c, incluindo subdiretórios
-SRCS = $(shell find $(CURDIR) -name "*.c" -print)
-OBJS = $(patsubst %.c,%.o,$(SRCS))
-TARGETS = $(patsubst %.c,%,$(SRCS))
+# Encontra todos os arquivos .c recursivamente
+SRCS = $(shell find . -name "*.c")
+# Gera uma lista de executáveis (mesmo nome do .c, sem extensão)
+TARGETS = $(SRCS:.c=)
 
-# Regra principal
+.PHONY: all clean distclean
+
 all: $(TARGETS)
 
-# Compilar os executáveis
-$(TARGETS): %: %.o
+# Regra para ligar cada executável e remover seu .o após a compilação
+%: %.o
 	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
-	rm -f $<  # Remove o arquivo .o após a criação do executável
+	@rm -f $<  # Remove o .o silenciosamente
 
-# Compilar os arquivos .c para .o
+# Regra para compilar .c em .o
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Limpeza
+# Limpa TODOS os arquivos temporários (incluindo os do crun)
 clean:
-	rm -f $(OBJS) $(TARGETS)
+	@echo "Limpando arquivos temporários..."
+	@find . \( -name "*.o" -o -name "*.out" -o -name "a.out" -o -name "*.exe" \) -type f -delete
+	@find . -type f -executable -not -path "./.git/*" -exec rm -f {} \;
 
-# Limpeza completa
+# Limpa tudo, incluindo os executáveis
 distclean: clean
-	rm -f $(SRCS:.c=.o)
+	@echo "Removendo executáveis..."
+	@find . -type f -executable -not -path "./.git/*" -exec rm -f {} \;
