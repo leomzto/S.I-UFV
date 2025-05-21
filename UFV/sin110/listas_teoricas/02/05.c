@@ -23,13 +23,10 @@ int main(void)
 
         printf("%d. Peso: ", i+1);
         scanf("%f", &pss[i].peso);
-        while(getchar() != '\n');
-
 
         printf("%d. ALtura: ", i+1);
         scanf("%f", &pss[i].altura);
         while(getchar() != '\n');
-
     
         printf("%d. IMC -> %.2f\n", i + 1, calculaIMC(pss[i]));
     }

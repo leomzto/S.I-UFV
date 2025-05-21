@@ -14,20 +14,19 @@ int main(void)
     imprimeVetor(vet, qtd);
     printf("Maior elemento: %d\n", retornaMaiorElemento(vet, qtd));
 
-
     return 0;
 }
 
 void preencheVetor(int *vet, int n)
 {
     int i;
+    
     for(i = 0; i < n; i++)
     {
         printf("Entre com o %d° valor: ", i + 1);
         scanf("%d", &vet[i]);
     }
     puts("");
-
 }
 
 void imprimeVetor(int *vet, int n)

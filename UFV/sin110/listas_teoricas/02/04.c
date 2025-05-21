@@ -20,10 +20,11 @@ int main(void)
 
 int diagSecundaria(int mat[5][5])
 {
-    int soma_elementos = 0;
+    int soma_elementos = 0, l, c;
     printf("Elementos da Diagonal secundaria: ");
-    for (int l = 0; l < 5; l++) {
-        int c = 4 - l;
+    for (l = 0; l < 5; l++) 
+    {
+        c = 4 - l;
         printf("%d ", mat[l][c]);
         soma_elementos += mat[l][c];
     }
