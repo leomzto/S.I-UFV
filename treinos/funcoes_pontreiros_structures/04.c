@@ -1,49 +1,21 @@
-/*
-Ex 4:
-Struct Aluno com nome e nota (float).
-Faça uma função que recebe um ponteiro para Aluno e atualiza a nota para 10 se for menor que 5.
-No main, crie 3 alunos, chame a função para cada um e imprima as notas.
-*/
-
 #include <stdio.h>
 
-typedef struct
+int soma(int *n1, int *n2, int *resultado);
+
+int main (void)
 {
-    char nome[20];
-    float nota;
-} Aluno;
+    int x = 5;
+    int y = 9;
+    int res;
 
-void ajusteNota(Aluno *aluno);
-
-int main(void)
-{
-    Aluno aluno[3];
-    int i;
-
-    puts("Cadastro de aluno ->");
-    for(i = 0; i < 3; i++)
-    {
-        printf("[%d] - Nome: ", i+1);
-        fgets(aluno[i].nome, sizeof(aluno[i].nome), stdin);
-
-        printf("[%d] - Nota: ", i+1);
-        scanf("%f", &aluno[i].nota);
-        while(getchar() != '\n');
-    }
-
-    puts("\nAtualização de notas ->");
-    for(i = 0; i < 3; i++)
-    {
-        ajusteNota(&aluno[i]);
-        printf("[%d] - Nome: %s", i+1, aluno[i].nome);
-        printf("[%d] - Nota: %.2f\n", i+1, aluno[i].nota);
-    }
+    printf("%d + %d = %d\n", x, y, soma(&x, &y, &res));
 
     return 0;
 }
 
-void ajusteNota(Aluno *aluno)
+int soma(int *n1, int *n2, int *resultado)
 {
-    if(aluno->nota < 5.0)
-        aluno->nota = 10.0;
+    *resultado = *n1 + *n2;
+
+    return *resultado;
 }

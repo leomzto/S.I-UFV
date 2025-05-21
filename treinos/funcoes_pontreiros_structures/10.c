@@ -1,37 +1,49 @@
 /*
-Ex 10 – Contar Vogais
-Descrição: Leia uma string com fgets e conte quantas vogais existem.
-Protótipo: int contar_vogais(char str[]);
+Ex 4:
+Struct Aluno com nome e nota (float).
+Faça uma função que recebe um ponteiro para Aluno e atualiza a nota para 10 se for menor que 5.
+No main, crie 3 alunos, chame a função para cada um e imprima as notas.
 */
 
 #include <stdio.h>
-#include <string.h>
 
-int EhVogal(char string[]);
+typedef struct
+{
+    char nome[20];
+    float nota;
+} Aluno;
+
+void ajusteNota(Aluno *aluno);
 
 int main(void)
 {
-    char string[100];
+    Aluno aluno[3];
+    int i;
 
-    printf("Entre com a string: ");
-    fgets(string, sizeof(string), stdin);
-    string[strcspn(string, "\n")] = '\0';
+    puts("Cadastro de aluno ->");
+    for(i = 0; i < 3; i++)
+    {
+        printf("[%d] - Nome: ", i+1);
+        fgets(aluno[i].nome, sizeof(aluno[i].nome), stdin);
 
-    printf("Quantidade de vogais presentes: %d.\n", EhVogal(string));
+        printf("[%d] - Nota: ", i+1);
+        scanf("%f", &aluno[i].nota);
+        while(getchar() != '\n');
+    }
+
+    puts("\nAtualização de notas ->");
+    for(i = 0; i < 3; i++)
+    {
+        ajusteNota(&aluno[i]);
+        printf("[%d] - Nome: %s", i+1, aluno[i].nome);
+        printf("[%d] - Nota: %.2f\n", i+1, aluno[i].nota);
+    }
 
     return 0;
 }
 
-int EhVogal(char string[])
+void ajusteNota(Aluno *aluno)
 {
-    char vogais[] = {"aeiouAEIOU"};
-    int encontrou= 0;
-    int i;
-
-    for(i = 0; i < strlen(string); i++)
-    {
-        if(strchr(vogais, string[i]) != NULL)
-            encontrou++;
-    }
-    return encontrou;
+    if(aluno->nota < 5.0)
+        aluno->nota = 10.0;
 }

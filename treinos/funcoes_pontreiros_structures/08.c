@@ -1,38 +1,44 @@
 /*
-Ex 8 – Matriz Identidade
-Descrição: Preencha uma matriz 3x3 como identidade (1 na diagonal, 0 fora).
-Protótipo: void matriz_identidade(int mat[3][3]);
+Ex 2:
+Defina uma struct Ponto com float x, y;.
+Faça uma função que calcula a distância entre dois pontos com a fórmula:
+Distância = √((x2 - x1)² + (y2 - y1)²)
+No main, leia dois pontos, chame a função e mostre a distância.
 */
 
 #include <stdio.h>
+#include <math.h>
 
-void matriz_identidade(int mat[3][3]);
+typedef struct
+{
+    float x, y;
+} Ponto;
+
+float calculaDistancia(Ponto *p1, Ponto *p2);
 
 int main(void)
 {
-    int mat[3][3];
+    Ponto p1, p2;
+    float distancia;
 
-    matriz_identidade(mat);
+    printf("Entre com as coordenadas do ponto 1: ");
+    scanf("%f %f", &p1.x, &p1.y);
+    printf("Entre com as coordenadas do ponto 2: ");
+    scanf("%f %f", &p2.x, &p2.y);
 
+    distancia = calculaDistancia(&p1, &p2);
+    printf("Distancia entre (%.2f, %.2f) e (%.2f, %.2f): %.2f\n",
+         p1.x, p1.y, p2.x, p2.y, distancia);
 
     return 0;
 }
 
-void matriz_identidade(int mat[3][3])
+    float calculaDistancia(Ponto *p1, Ponto *p2)
 {
-    int l, c;
-    for(l = 0; l < 3; l++)
-    {
-        for(c = 0; c < 3; c++)
-        {
-            if(l == c)
-                mat[l][c] = 1;
-            else
-                mat[l][c] = 0;
+    // Distância = √((x2 - x1)² + (y2 - y1)²)
+    float quadrado_x = pow((p2->x - p1->x), 2);
+    float quadrado_y = pow((p2->y - p1->y), 2);
+    float distancia = sqrt(quadrado_x + quadrado_y);
 
-            printf("%d ", mat[l][c]);
-        }
-        printf("\n");
-    }
+    return distancia;
 }
-

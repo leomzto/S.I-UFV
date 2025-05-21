@@ -1,41 +1,43 @@
 /*
-Ex 7 – Média de Notas
-Descrição: Leia as notas de 5 alunos, calcule e imprima a média geral.
-Protótipo: float calcular_media(float notas[], int n);
+Ex 1:
+Protótipo: float calcula_media(int v[], int n);
+Descrição: Codifique uma função que calcula a média simples de um vetor de inteiros.
+Fórmula da média:
+Média = (soma dos valores) / (quantidade de valores)
+No main, leia 5 números, chame a função e imprima a média.
 */
 
 #include <stdio.h>
 
-float calcular_media(float nota[], int n);
+float calcula_media(int v[], int n);
 
 int main(void)
 {
-    float nota[5];
+    int vet[5];
     float media;
     int i;
 
+    puts("Preencher vetor ->");
     for(i = 0; i < 5; i++)
     {
-        printf("Entre com a nota do %d° aluno: ", i+1);
-        scanf("%f", &nota[i]);
+        printf("Entre com vet[%d]: ", i);
+        scanf("%d", &vet[i]);
     }
 
-    media = calcular_media(nota, 5);
-
-    printf("Media das notas: %.2f\n", media);
+    media = calcula_media(vet, 5);
+    printf("Media do vetor: %.2f\n", media);
 
     return 0;
 }
-
-float calcular_media(float nota[], int n)
+float calcula_media(int v[], int n)
 {
-    float soma = 0.0;
-    float media;
+    int soma = 0;
+    float media = 0.0;
     int i;
 
     for(i = 0; i < n; i++)
-        soma += nota[i];
-    media = soma / n;
+        soma += v[i];
+    media = (float)soma / n;
 
     return media;
 }
