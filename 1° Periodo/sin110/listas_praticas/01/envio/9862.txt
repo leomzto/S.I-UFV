@@ -1,0 +1,239 @@
+Aula Prática 01
+
+Nome: Leonardo Padovani Manzato
+Matricula: 9862
+
+Ex1: 
+
+==============
+
+#include <stdio.h>
+#include <ctype.h>
+
+int main (void)
+{
+    char con;
+    float nota;
+
+    printf("Entre com um conceito (A | B | C | D): ");
+    scanf("%c", &con);
+
+    printf("Informe a nota: ");
+    scanf("%f", &nota);
+
+    con = toupper(con);
+
+    printf("Conceito: %c   |   Nota: %.2f\n", con, nota);
+
+    return 0;
+}
+
+==============
+
+Ex2: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+    int l1, l2;
+
+    printf("Insira os lados em CM:\n");
+
+    printf("Lado 1: ");
+    scanf("%d", &l1);
+
+    printf("Lado 2: ");
+    scanf("%d", &l2);
+
+    int a = l1 * l2;
+
+    printf("A area é: %dcm", a);
+
+    return 0;
+}
+
+==============
+
+Ex3: 
+
+==============
+
+#include <stdio.h>
+#include <unistd.h>
+
+int main(void)
+{
+    char nome[100];
+
+    printf("Qual o seu nome? ");
+    scanf("%s", nome);
+
+    printf("\nOla, %s\n", nome);
+    sleep(2);
+
+    return 0;
+}
+
+==============
+
+Ex4: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+    char nome[100];
+    int mat, idd;
+
+    printf("Insira seu nome: ");
+    scanf("%s", &nome);
+
+    printf("Insira sua matricula: ");
+    scanf("%d", &mat);
+
+    printf("Insira sua idade: ");
+    scanf("%d", &idd);
+
+    printf("\nNome: %s\nMatricula: %d\nIdade: %d anos\n", nome, mat, idd);
+
+    return 0;
+}
+
+==============
+
+Ex5: 
+
+==============
+
+#include <stdio.h>
+
+int main (void)
+{
+    int m, i;
+    float a;
+
+    printf("Entre com sua matricula: ");
+    scanf("%d", &m);
+
+    printf("Entre com sua idade: ");
+    scanf("%d", &i);
+
+    printf("Entre com sua altura: ");
+    scanf("%f", &a);
+
+    printf("\nMatricula: %d\nIdade: %d anos\nAltura: %.2fm\n", m, i, a);
+
+    return 0;
+}
+
+==============
+
+Ex6: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+    int x, y;
+
+    printf("Insira um numero X: ");
+    scanf("%d", &x);
+
+    printf("Insira um numero Y: ");
+    scanf("%d", &y);
+
+    printf("\nX: %d | Y: %d\n",x, y);
+
+    return 0;
+}
+
+==============
+
+Ex7: 
+
+==============
+
+#include <stdio.h>
+
+int main(void)
+{
+    int ent;
+    float sal;
+
+    printf("Ano em que entrou: ");
+    scanf("%d", &ent);
+
+    printf("Salario: ");
+    scanf("%f", &sal);
+
+    printf("\nAno de entrada: %d \nSalario: %.2f\n", ent, sal);
+
+    return 0;
+}
+
+==============
+
+Ex8: 
+
+==============
+
+#include <stdio.h>
+
+int main (void)
+{
+    int n1, n2, n3, n4, n5;
+
+    printf("Entre com a nota 1: ");
+    scanf("%d", &n1);
+
+    printf("Entre com a nota 2: ");
+    scanf("%d", &n2);
+
+    printf("Entre com a nota 3: ");
+    scanf("%d", &n3);
+
+    printf("Entre com a nota 4: ");
+    scanf("%d", &n4);
+
+    printf("Entre com a nota 5: ");
+    scanf("%d", &n5);
+
+    float md = (n1 + n2 + n3 + n4 + n5) / 5.0f;
+
+    printf("A media de suas notas é: %.2f", md);
+
+    return 0;
+}
+
+==============
+
+Ex9: 
+
+==============
+
+#include <stdio.h>
+
+int main (void)
+{
+    float sal;
+
+    printf("Entre com o salario: ");
+    scanf("%f", &sal);
+
+    float reaj = (sal / 100) * 25;
+    float novo_sal = sal + reaj;
+    float dif = novo_sal - sal;
+
+    printf("Com um reajuste, seu salario sobe de R$%.2f para R$%.2f. Com uma diferença de R$%.2f", sal, novo_sal, dif);
+
+    return 0;
+}
+
+==============
