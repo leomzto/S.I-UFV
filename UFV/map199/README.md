@@ -7,7 +7,7 @@ do curso de **Sistemas de Informação** da **Universidade Federal de Viçosa �
 
 ---
 
-## 📚 O que você encontra aqui
+## 📚 Conteúdo
 
 - Listas de exercícios
 - Provas e Gabaritos
