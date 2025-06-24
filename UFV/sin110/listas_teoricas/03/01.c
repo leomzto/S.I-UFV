@@ -8,8 +8,7 @@ int main(void)
   int *loteria = malloc(6 * sizeof(int));
   int *jogador = malloc(6 * sizeof(int));
   int acertos = 0;
-  int repetido;
-  int i;
+  int i, j;
 
   if (loteria == NULL || jogador == NULL)
   {
@@ -19,20 +18,21 @@ int main(void)
 
   printf("Digite os números da loteria (6 números entre 1 e 20):\n");
   lerNumeros(loteria, 6);
+
   printf("Digite os números do jogador (6 números entre 1 e 20):\n");
   lerNumeros(jogador, 6);
 
-for (i = 0; i < 6; i++)
-{
-  for (int j = 0; j < 6; j++)
+  for (i = 0; i < 6; i++)
   {
-    if (loteria[i] == jogador[j])
+    for (j = 0; j < 6; j++)
     {
-      acertos++;
-      break;
+      if (loteria[i] == jogador[j])
+      {
+        acertos++;
+        break;
+      }
     }
   }
-}
 
   int *certos = malloc(acertos * sizeof(int));
   if (certos == NULL)
@@ -43,14 +43,29 @@ for (i = 0; i < 6; i++)
     exit(1);
   }
 
-  printf("Números corretos:\n");
-  for (i = 0; i < 6; i++)   
-    printf("%d ", certos[i]);
+  int numeros = 0;
+  for (i = 0; i < 6; i++)
+  {
+    for (j = 0; j < 6; j++)
+    {
+      if (loteria[i] == jogador[j])
+      {
+        certos[numeros] = loteria[i];
+        numeros++;
+        break;
+      }
+    }
+  }
 
+  printf("Números corretos:\n");
+  for (i = 0; i < acertos; i++)
+    printf("%d ", certos[i]);
 
   printf("\nNúmeros da loteria:\n");
   for (i = 0; i < 6; i++)
     printf("%d ", loteria[i]);
+
+  printf("\n");
 
   free(loteria);
   free(jogador);
