@@ -13,7 +13,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -g -Wall -Wextra
 
 # Define o nome do arquivo executável que será gerado.
-TARGET = programa_lse
+TARGET = lse_compilado
 
 # Lista de todos os arquivos fonte (.cpp).
 SRCS = main.cpp lse.cpp
