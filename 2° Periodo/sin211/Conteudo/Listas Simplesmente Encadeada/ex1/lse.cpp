@@ -228,7 +228,6 @@ void ordenarLista(Lista* lista)
 Lista* mergeListasOrdenadas(Lista* L1, Lista* L2)
 {
     Lista* L3 = new Lista;
-    
     No* atualL1 = L1->inicio;
     No* atualL2 = L2->inicio;
     No* ultimoL3 = nullptr;
