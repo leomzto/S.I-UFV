@@ -1,0 +1,4 @@
+O melhor método a ser utilisado é o da LDE (Lista Duplamente Encadeada) pois ela garante 
+facil remoção ao ultimo nó quanto a lista atingir o limite maximo definido, e tambem 
+tem grande eficiencia na inserção de novos itens. Já a melhor tecnica de organização seria a de Mover para Frente
+pois essa, dentre as listadas, é a única que garante sempre que o ultimo elemento acessado passe a ser o primeiro elemento da lista.
