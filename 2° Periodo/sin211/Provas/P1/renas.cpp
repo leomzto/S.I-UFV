@@ -74,7 +74,7 @@ typedef struct sLista {
 
             while (aux != nullptr && aux->prox != nullptr)
             {
-                if (comparar(aux->info, aux->prox->info) > 0)
+                if (comparar(aux->info, aux->prox->info) != true)
                 {
                     swap(aux->info, aux->prox->info);
                     trocou = true;
@@ -90,9 +90,9 @@ typedef struct sLista {
     {
         No* aux = inicio;
 
-        for (int i = 0; i <= m && aux != nullptr; i++)
+        for (int i = 0; i < m && aux != nullptr; i++)
         {   
-            cout << i << " " << aux->info.nome << endl;
+            cout << i + 1 << " - " << aux->info.nome << endl;
 
             aux = aux->prox;
         }
