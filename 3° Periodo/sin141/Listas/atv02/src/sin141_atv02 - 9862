@@ -1,0 +1,512 @@
+Leonardo Padovani Manzato - 9862
+Atv02
+
+=======================================
+ex01
+=======================================
+import java.util.Scanner;
+
+public class ex01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o primeiro numero: ");
+        int n1 = scanner.nextInt();
+
+        System.out.print("Digite o segundo numero: ");
+        int n2 = scanner.nextInt();
+
+        int soma = n1 + n2;
+        System.out.println(n1 + " + " + n2 + " = " + soma);
+
+        scanner.close();
+    }
+
+}
+=======================================
+ex02
+=======================================
+import java.util.Scanner;
+
+public class ex02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um numero par: ");
+        int n = scanner.nextInt() + 2;
+
+        if (n % 2 != 0) {
+            System.out.println("Numero invalido, precisa ser par.");
+        }
+        System.out.println("Proximo par: " + n);
+
+        scanner.close();
+    }
+}
+
+=======================================
+ex03
+=======================================
+import java.util.Scanner;
+
+public class ex03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um numero: ");
+        int n = scanner.nextInt();
+
+        if (n % 2 == 0) {
+            System.out.println("Par");
+        }
+        else {
+            System.out.println("Impar");
+        }
+
+        scanner.close();
+    }
+}
+
+=======================================
+ex04
+=======================================
+import java.util.Scanner;
+
+public class ex04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um numero: ");
+        int n = scanner.nextInt();
+
+        if (n >= 0) {
+            System.out.println("Positivo");
+        }
+        else {
+            System.out.println("Negativo");
+        }
+
+        scanner.close();
+    }
+}
+
+=======================================
+ex05
+=======================================
+import java.util.Scanner;
+
+public class ex05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite sua altura (m): ");
+        double a = scanner.nextDouble();
+
+        System.out.print("Digite seu peso (kg): ");
+        double p = scanner.nextDouble();
+
+        double imc = p / (a * a);
+
+        System.out.printf("IMC: %.2f%n", imc);
+
+        if (imc < 18.5) {
+            System.out.println("Magreza");
+        } else if (imc >= 18.5 && imc <= 24.9) {
+            System.out.println("Normal");
+        } else if (imc >= 25 && imc <= 29.9) {
+            System.out.println("Sobrepeso");
+        } else if (imc >= 30 && imc <= 39.9) {
+            System.out.println("Obesidade");
+        } else {
+            System.out.println("Obesidade grave");
+        }
+
+        scanner.close();
+    }
+}
+=======================================
+ex06
+=======================================
+import java.util.Scanner;
+
+public class ex06 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Distancia percorrida (km): ");
+        int d = scanner.nextInt();
+
+        System.out.print("Tempo gasto (h): ");
+        int t = scanner.nextInt();
+
+        int v = d/t;
+
+        System.out.println("Velocidade = " + v);
+
+        scanner.close();
+    }
+}
+
+=======================================
+ex07
+=======================================
+import java.util.Scanner;
+
+public class ex07 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[] notas = new int[3];
+        for (int i = 0; i < 3; i++) {
+            System.out.printf("Digite o %d° numero:", i+1);
+            notas[i] = scanner.nextInt();
+        }
+
+        int soma = 0;
+        for (int nota : notas) {
+            soma += nota;
+        }
+
+        if (soma >= 60) {
+            System.out.println("Aprovado");
+        }
+        else {
+            System.out.println("Reprovado");
+        }
+
+        scanner.close();
+    }
+}
+
+=======================================
+ex08
+=======================================
+import java.util.Scanner;
+
+public class ex08 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Quantidade de notas: ");
+        int qtd = scanner.nextInt();
+
+        int[] notas = new int[qtd];
+        for (int i = 0; i < qtd; i++) {
+            System.out.printf("Digite o %d° numero:", i+1);
+            notas[i] = scanner.nextInt();
+        }
+
+        int soma = 0;
+        for (int nota : notas) {
+            soma += nota;
+        }
+
+        double media = (double) soma/ qtd;
+        System.out.printf("Media: %.2f%n", media);
+        if (media >= 60) {
+            System.out.println("Aprovado");
+        }
+        else {
+            System.out.println("Reprovado");
+        }
+
+        scanner.close();
+    }
+}
+
+=======================================
+ex09
+=======================================
+/*
+9. Utilize seus conhecimentos para criar um cenário para representar uma pessoa,
+um menino e uma menina, respondendo as seguintes questões:
+a. Quais são as características de pessoa, menino e menina?
+b. Quais são as ações de uma pessoa?
+c. Como ficaria a implementação deste cenário em Java?
+*/
+
+/*
+a) Características
+Pessoa: nome, idade, altura, peso
+Menino: tudo de Pessoa + gostaDeFutebol (boolean)
+Menina: tudo de Pessoa + gostaDeDancar (boolean)
+b) Ações
+Pessoa: falar(), comer(), dormir()
+Menino: jogarFutebol()
+Menina: dancar()
+*/
+
+// c)
+class Pessoa {
+    String nome;
+    int idade;
+    double altura;
+    double peso;
+
+    void falar() {
+        System.out.println(nome + " está falando");
+    }
+
+    void comer() {
+        System.out.println(nome + " está comendo");
+    }
+
+    void dormir() {
+        System.out.println(nome + " está dormindo");
+    }
+}
+
+class Menino extends Pessoa {
+    boolean gostaDeFutebol;
+
+    void jogarFutebol() {
+        if (gostaDeFutebol) {
+            System.out.println(nome + " está jogando futebol");
+        } else {
+            System.out.println(nome + " não gosta de futebol");
+        }
+    }
+}
+
+class Menina extends Pessoa {
+    boolean gostaDeDancar;
+
+    void dancar() {
+        if (gostaDeDancar) {
+            System.out.println(nome + " está dançando");
+        } else {
+            System.out.println(nome + " não gosta de dançar");
+        }
+    }
+}
+
+public class ex09 {
+    public static void main(String[] args) {
+
+        Menino menino = new Menino();
+        menino.nome = "João";
+        menino.idade = 10;
+        menino.gostaDeFutebol = true;
+
+        Menina menina = new Menina();
+        menina.nome = "Maria";
+        menina.idade = 9;
+        menina.gostaDeDancar = true;
+
+        menino.falar();
+        menino.jogarFutebol();
+
+        menina.falar();
+        menina.dancar();
+    }
+}
+=======================================
+ex10
+=======================================
+/*
+10. Utilize seus conhecimentos para criar um cenário para representar veículo, carro,
+moto, caminhão, avião e barco respondendo as seguintes questões:
+a. Quais são as características de cada um?
+b. Quais são as ações de cada um?
+c. De um exemplo de classe e objeto utilizando a linguagem Java.
+ */
+
+/*
+a) Características
+Veículo: marca, modelo, ano, velocidade
+Carro: portas, tipoCombustivel
+Moto: cilindradas, tipoPartida
+Caminhão: cargaMaxima, numeroEixos
+Avião: altitudeMaxima, numeroMotores
+Barco: tipo, capacidade
+b) Ações
+Veículo: acelerar(), frear()
+Carro: ligarAr()
+Moto: empinar()
+Caminhão: carregarCarga()
+Avião: voar()
+Barco: navegar()
+ */
+
+// c)
+class Veiculo {
+    String marca;
+    String modelo;
+    int ano;
+    double velocidade;
+
+    void acelerar() {
+        System.out.println("Acelerando...");
+    }
+
+    void frear() {
+        System.out.println("Freando...");
+    }
+}
+
+class Carro extends Veiculo {
+    int portas;
+    String tipoCombustivel;
+
+    void ligarAr() {
+        System.out.println("Ar-condicionado ligado");
+    }
+}
+
+class Moto extends Veiculo {
+    int cilindradas;
+
+    void empinar() {
+        System.out.println("Empinando a moto");
+    }
+}
+
+class Caminhao extends Veiculo {
+    double cargaMaxima;
+
+    void carregarCarga() {
+        System.out.println("Carregando carga");
+    }
+}
+
+class Aviao extends Veiculo {
+    int numeroMotores;
+
+    void voar() {
+        System.out.println("Avião está voando");
+    }
+}
+
+class Barco extends Veiculo {
+    int capacidade;
+
+    void navegar() {
+        System.out.println("Barco navegando");
+    }
+}
+
+public class ex10 {
+    public static void main(String[] args) {
+
+        Carro carro = new Carro();
+        carro.marca = "Toyota";
+        carro.modelo = "Corolla";
+        carro.ano = 2022;
+        carro.portas = 4;
+
+        carro.acelerar();
+        carro.ligarAr();
+
+        Aviao aviao = new Aviao();
+        aviao.marca = "Boeing";
+        aviao.modelo = "737";
+        aviao.numeroMotores = 2;
+
+        aviao.voar();
+    }
+}
+=======================================
+ex011
+=======================================
+class Animal {
+    String nome;
+    String especie;
+    int idade;
+    double peso;
+
+    void emitirSom() {
+        System.out.println(nome + " esta fazendo um som");
+    }
+}
+
+public class ex11 {
+    public static void main(String[] args) {
+
+        Animal cachorro = new Animal();
+        cachorro.nome = "Rex";
+        cachorro.especie = "Cachorro";
+        cachorro.idade = 5;
+        cachorro.peso = 20.5;
+
+        Animal gato = new Animal();
+        gato.nome = "Mia";
+        gato.especie = "Gato";
+        gato.idade = 3;
+        gato.peso = 4.2;
+
+        Animal passaro = new Animal();
+        passaro.nome = "Piu";
+        passaro.especie = "Pássaro";
+        passaro.idade = 1;
+        passaro.peso = 0.3;
+
+        Animal peixe = new Animal();
+        peixe.nome = "Nemo";
+        peixe.especie = "Peixe";
+        peixe.idade = 2;
+        peixe.peso = 0.5;
+
+        Animal cavalo = new Animal();
+        cavalo.nome = "Trovão";
+        cavalo.especie = "Cavalo";
+        cavalo.idade = 7;
+        cavalo.peso = 400.0;
+
+        cachorro.emitirSom();
+        gato.emitirSom();
+        passaro.emitirSom();
+        peixe.emitirSom();
+        cavalo.emitirSom();
+    }
+}
+=======================================
+ex12
+=======================================
+class HistoricoTransferencia {
+    String cpfOrigem;
+    String cpfDestino;
+    double valor;
+
+    public HistoricoTransferencia(String cpfOrigem, String cpfDestino, double valor) {
+        this.cpfOrigem = cpfOrigem;
+        this.cpfDestino = cpfDestino;
+        this.valor = valor;
+    }
+
+    void exibirTransferencia() {
+        System.out.println("Origem: " + cpfOrigem);
+        System.out.println("Destino: " + cpfDestino);
+        System.out.println("Valor: R$ " + valor);
+    }
+}
+=======================================
+ex13
+=======================================
+import java.util.ArrayList;
+
+class ListaAutorizacao {
+    String nomeEvento;
+    ArrayList<String> pessoasAutorizadas;
+
+    public ListaAutorizacao(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
+        this.pessoasAutorizadas = new ArrayList<>();
+    }
+
+    void adicionarPessoa(String nome) {
+        pessoasAutorizadas.add(nome);
+    }
+
+    boolean estaAutorizado(String nome) {
+        return pessoasAutorizadas.contains(nome);
+    }
+
+    void exibirLista() {
+        System.out.println("Evento: " + nomeEvento);
+        System.out.println("Pessoas autorizadas:");
+        for (String pessoa : pessoasAutorizadas) {
+            System.out.println("- " + pessoa);
+        }
+    }
+}
+=======================================
