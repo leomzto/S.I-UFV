@@ -1,0 +1,154 @@
+Leonardo Padovani Manzato - 9862
+Atv03
+
+=======================================
+ex01
+=======================================
+public class ex01 {
+
+    static class Pessoa {
+        String nome;
+        String telefone;
+
+        public Pessoa(String nome, String telefone) {
+            this.nome = nome;
+            this.telefone = telefone;
+        }
+    }
+
+    static class Agenda {
+        int ano;
+        float altura;
+        boolean emUso;
+        Pessoa[] pessoas;
+        String nomeAgenda;
+        String nomeDono;
+
+        public Agenda(int ano, float altura, boolean emUso, String nomeAgenda, String nomeDono, int qtdPessoas) {
+            this.ano = ano;
+            this.altura = altura;
+            this.emUso = emUso;
+            this.nomeAgenda = nomeAgenda;
+            this.nomeDono = nomeDono;
+            this.pessoas = new Pessoa[qtdPessoas];
+        }
+    }
+}
+
+=======================================
+ex02
+=======================================
+import java.util.Scanner;
+
+public class ex02 {
+
+    public static class Menu {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            int opc;
+
+            do {
+                System.out.println("1 - Tabuada");
+                System.out.println("2 - Sequencia");
+                System.out.println("3 - Sair");
+                opc = scanner.nextInt();
+
+                switch(opc) {
+                    case 1:
+                        int num;
+                        do {
+                            System.out.print("Digite um numero (1 a 10): ");
+                            num = scanner.nextInt();
+                        } while (num < 1 || num > 10);
+
+                        for (int i = 1; i <=10; i++) {
+                            System.out.println(num + " x " + i + " = " + (num * i));
+                        }
+                        break;
+
+                    case 2:
+                        for (int i = 1; i <= 10; i++) {
+                            System.out.print(i + " ");
+                        }
+                        System.out.println();
+                        break;
+                }
+            } while (opc != 3);
+
+            scanner.close();
+        }
+    }
+}
+
+=======================================
+ex03
+=======================================
+import java.util.Scanner;
+
+public class ex03 {
+    public static class MaisJovem {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            String nomeMaisJovem = "";
+            int menorIdade = Integer.MAX_VALUE;
+
+            for (int i = 0; i < 5; i++) {
+                System.out.print("Nome: ");
+                String nome = scanner.next();
+
+                System.out.print("Idade: ");
+                int idade = scanner.nextInt();
+
+                if (idade < menorIdade) {
+                    menorIdade = idade;
+                    nomeMaisJovem = nome;
+                }
+            }
+
+            System.out.println("Pessoa mais jovem: " + nomeMaisJovem);
+            System.out.println(("Idade: " + menorIdade));
+
+            scanner.close();
+        }
+    }
+}
+
+=======================================
+ex04
+=======================================
+public class ex04 {
+
+    static class ControleRemoto {}
+    static class Antena {}
+    static class SistemaSom {}
+
+    static class Televisao {
+        ControleRemoto controle;
+        Antena antena;
+        SistemaSom som;
+
+        public Televisao(ControleRemoto controle, Antena antena, SistemaSom som) {
+            this.controle = controle;
+            this.antena = antena;
+            this.som = som;
+        }
+    }
+}
+=======================================
+ex05
+=======================================
+public class ex05 {
+    static class Pessoa {
+        String nome;
+        String endereco;
+        String telefone;
+
+        public Pessoa(String nome, String endereco, String telefone) {
+            this.nome = nome;
+            this.endereco = endereco;
+            this.telefone = telefone;
+        }
+    }
+}
+=======================================
