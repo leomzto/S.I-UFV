@@ -1,4 +1,56 @@
-.vscode/
+# =========================
+# INTELLIJ IDEA
+# =========================
 .idea/
-.iml
+*.iml
 out/
+
+# =========================
+# JAVA
+# =========================
+*.class
+target/
+build/
+.gradle/
+
+# =========================
+# PYTHON
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+venv/
+env/
+.venv/
+
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.cache/
+
+# =========================
+# C / C++
+# =========================
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
+
+build/
+bin/
+obj/
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# =========================
+# VSCODE
+# =========================
+.vscode/
