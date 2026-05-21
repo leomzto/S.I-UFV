@@ -19,7 +19,7 @@ public class Main {
             System.err.println(e.getMessage());
         }
 
-        System.out.println("Programa finalizado normalmente.");
+        System.out.println("Programa finalizado normalmente");
 
     }
 }
