@@ -1,0 +1,87 @@
+A) 1.   Overload é na mesma classe/subclasse, quand o2 metodos possuem o mesmo nome, porem, assinaturas diferentes
+        Override é, em ralaçao a uma herença, quando você altera o comportamento do metodo, sendo esse, um exemplo de polimorfismo
+
+   2.   Overlaod acontece em tempo de compilação (polimorfismo estatico)
+        Override occore em tempo de execução     (polimorfismo dinamico)
+
+   3.   Overload possui parametros diferentes, seja em quantidade ou em ordem
+        Override deve possuir os mesmos parametros da classe mae, em quantidadem ordem e nomes
+
+   4.   class Calculadora {
+            // OVERLOAD:
+            public int somar(int a, int b) { return a + b; }
+            public double somar(double a, double b) { return a + b; }
+        }
+
+        class Animal {
+            public void emitirSom() { System.out.println("Som genérico"); }
+        }
+        class Gato extends Animal {
+            // OVERRIDE:
+            @Override
+            public void emitirSom() { System.out.println("Miau!"); }
+        }
+
+-------------------
+
+B) 1.   Uma classe abstrata deve ser utilizada pensando em "É UM", ou seja, quando quer compartilhar codigo comum e estado entre classes fortemente relacionadas
+        Interface é utilizada pensando no "conseque fazer", ou seja, define capacidade ou comportamento que pode ser compartilhado por classes totalmente diferentes e sem parentesco
+
+   2.   Classe abstrada pode ter qualquer tipo de atributo, seja privado, public ou protegido ou variaveis de instancias mutaveis
+        Interface só pode ter constantes (public static final), com qualquer atributo declarado em uma interface assumindo isso
+
+   3.   Classes abstratas podem ter construtores, principalente para inicializar atributos padroes (com super() na classe filha)
+        Interfaces não podem ter construtores, visto que não guardam instancias
+
+   4.   EXTENDS: utilizado apenas uma vez, para exterder uma classe mae na classe filha, ***java proibe herança multipla
+        IMPLEMENTES: pode ser utilizado para implementar varias interfaces
+
+------------------
+
+C) Java proibe herança multipla para evitar um problema estgruturas (Problema do Diamante)
+
+    As interfaces corrigem isso pois tradicionalmente, sao contrados de metodos, sem nenhum codigo ou implementaçao, visto que se uma classe implementa duas interfaces e as
+    duas interfaces possuem metodos iguais, isso nao gera conflito, visto que, por implementar interface, essa classe deve codificar seu proprio comportamento, uma unica
+    versao, proibindo ambiguidade
+
+------------------
+
+D) 1.   THROW: usado no corpo do metodo
+        THROWS: usado na assinatura do metodo (apos parametros)
+
+   2.   THROW: lança o erro manualmente em tempo de execuçao
+        THROWS: declara que o erro pode acontecer e avisa o compilador que aquela funçao tem o potencial de gerar tal erro
+
+   3.   // O "throws" avisa que o método pode falhar
+        public void validarIdade(int idade) throws Exception {
+            if (idade < 0) {
+                // O "throw" cria e dispara o erro na hora
+                throw new Exception("Idade inválida!");
+            }
+        }
+
+---------------------
+
+E) 1.   CHECKED (Verificadas): são aquelas que extendem de Exception e nao de RuntimeException, obrigando o programador a trata-las com try-catch ou declara-las com trhows, se isso nao for feito
+                                o codigo nao compila. ***FALHAS EXTERNAS PREVISIVEIS
+
+                                ° IOException -> erro de leitura/escrita de arquivo
+                                ° SQLException -> erro de conexcao/consulta ao banco de dados
+
+        UNCHECKED (Não verificadas): são aquelas que extendem RuntimeException, sendo assim, o compilador nao obriga tratamento previo, costumam indicar erros de logica do programador que deveriam
+                                        ter sido evitados com verificaçoes previas
+
+                                        ° NullPointerException -> tentar acessar metodo de um objeto nulo
+                                        ° ArithmeticException -> ex.: tentar dividir um numero por 0
+
+----------------------
+
+F)  a1 : Animal se apresentando...
+            Au AU!
+
+    a1 : Animal se apresentando...
+            Miau!
+
+
+    Esse é um bom exemplo de polimorfismo pois ambas as classses, cachorro e gato herdam a classe animal e sobreescrevm o metodo de emitir som, alterando o comportamento para o seu proprio, sendo esse
+    um exemplo de polimorfismo dinamico.
