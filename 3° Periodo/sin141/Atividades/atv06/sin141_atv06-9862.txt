@@ -1,0 +1,152 @@
+Leonardo Padovani Manzato - 9862
+Atv06
+
+=======================================
+ex01
+=======================================
+package ex01;
+
+public class Main {
+    static void main(String[] args) {
+        int aValido = 10;
+        int bValido = 2;
+
+        int bInvalido = 0;
+
+        System.out.println(dividir(aValido, bValido));
+        System.out.println(dividir(aValido, bInvalido));
+    }
+
+    public static int dividir(int a, int b) {
+        try {
+            return a / b;
+        } catch (ArithmeticException e) {
+            System.err.println("Erro: nao e possivel dividir por zero -> " + e.getMessage());
+            return 0;
+        }
+    }
+}
+
+=======================================
+ex02
+=======================================
+package ex02;
+
+import java.util.Scanner;
+
+public class Main {
+    static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite sua idade: ");
+        String entrada = scanner.nextLine();
+
+        try {
+            int idade = Integer.parseInt(entrada);
+
+            if (idade < 0) {
+                throw new IllegalArgumentException("Idade nao pode ser negativa");
+            }
+
+            System.out.println("Idade cadastrada com sucesso: " + idade);
+
+        } catch (NumberFormatException e) {
+            System.out.println("A idade informada não é um numero interido valido.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro de validacao: " + e.getMessage());
+        } finally {
+            scanner.close();
+
+        }
+
+
+    }
+}
+
+=======================================
+ex03
+=======================================
+package ex03;
+
+public class SaldoInsuficienteException extends Exception {
+
+    public SaldoInsuficienteException() {
+        super("Saldo insuficiente");
+    }
+
+    public SaldoInsuficienteException(String message) {
+        super(message);
+    }
+}
+
+
+package ex03;
+
+public class ContaBancaria {
+    private double saldo;
+
+    public ContaBancaria() {
+        this.saldo = 0.0;
+    }
+    public ContaBancaria(double saldo) throws  IllegalArgumentException {
+        if (saldo < 0) {
+            throw new IllegalArgumentException("ERRO: Valor invalido.");
+        }
+
+        this.saldo = saldo;
+    }
+
+    public double getSaldo() { return saldo; }
+    public void setSaldo(double saldo) throws  IllegalArgumentException {
+        if (saldo < 0) {
+            throw new IllegalArgumentException("ERRO: Valor invalido.");
+        }
+        this.saldo = saldo;
+    }
+    public void depositar(double valor) throws  IllegalArgumentException {
+        if (valor < 0) {
+            throw new IllegalArgumentException("ERRO: Valor invalido.");
+        }
+        this.saldo += valor;
+    }
+    public void sacar(double valor) throws SaldoInsuficienteException, IllegalArgumentException {
+        if (valor <= 0) {
+            throw new IllegalArgumentException("ERRO: Valor invalido.");
+        }
+        if (valor > this.saldo) {
+            throw new SaldoInsuficienteException("ERRO: Saldo insuficiente.");
+        }
+
+        this.saldo -= valor;
+    }
+}
+
+
+package ex03;
+
+public class Main {
+    static void main(String[] args) {
+        ContaBancaria conta = new ContaBancaria();
+
+        try {
+            conta.setSaldo(100);
+            System.out.println("Saldo inicial: R$ " + conta.getSaldo());
+
+            double saque = 150.0;
+            System.out.println("Tentando sacar R$ " + saque + "...");
+            conta.sacar(saque);
+
+            System.out.println("Saldo disponivel: R$ " + conta.getSaldo());
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        } catch (SaldoInsuficienteException e) {
+            System.err.println(e.getMessage());
+        }
+
+        System.out.println("Programa finalizado normalmente");
+
+    }
+}
+
+=======================================
