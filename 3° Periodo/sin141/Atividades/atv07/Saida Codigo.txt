@@ -1,0 +1,60 @@
+======================================================================
+  SISTEMA LOCADORA DE VEÍCULOS ? Java Puro com Armazenamento em Memória
+======================================================================
+
+--- 1. Cadastro de Veículos (Herança + Encapsulamento) ---
+Veículos cadastrados:
+  [CARRO] id=1 | Toyota Corolla (2022) | Placa: ABC1D23 | Diária: R$ 150,00 | Disponível | 4 portas | FLEX
+  [MOTO] id=2 | Honda CB 500 (2023) | Placa: XYZ5E67 | Diária: R$ 80,00 | Disponível | 500 cc
+  [CAMINHONETE] id=3 | Fiat Strada (2024) | Placa: ABED1235 | Diária: R$ 200,00 | Disponível | Capacidade carga: 300Kg
+
+--- 2. Abstração ? variável do tipo Veiculo referencia Carro ou Moto ---
+  Tipo: CARRO | Modelo: Corolla         | Disponível: true
+  Tipo: MOTO  | Modelo: CB 500          | Disponível: true
+  Tipo: CAMINHONETE | Modelo: Strada          | Disponível: true
+
+--- 3. Polimorfismo ? calcularCustoLocacao(5 dias) ---
+  CARRO Corolla: diária R$ 150,00 × 5 dias = R$ 750,00
+  MOTO CB 500: diária R$ 80,00 × 5 dias = R$ 360,00
+  CAMINHONETE Strada: diária R$ 200,00 × 5 dias = R$ 1250,00
+  >> A Moto aplica 10% de desconto ? mesmo método, comportamento diferente!
+
+--- 4. Clientes (Encapsulamento) ---
+Clientes cadastrados:
+  Cliente[1] Maria Oliveira | CPF: 12345678901 | maria@email.com | Cadastro: 2026-05-28
+  Cliente[2] João Silva | CPF: 98765432100 | joao@email.com | Cadastro: 2026-05-28
+
+--- 5. Locações (Composição + Polimorfismo) ---
+Locação criada: Locacao[1] Maria Oliveira -> CARRO Corolla | 2026-05-28 até 2026-06-02 (5 dias) | R$ 750,00 | ATIVA
+Locação criada: Locacao[2] João Silva -> MOTO CB 500 | 2026-05-28 até 2026-06-02 (5 dias) | R$ 360,00 | ATIVA
+
+Veículos disponíveis após locações:
+  [CAMINHONETE] id=3 | Fiat Strada (2024) | Placa: ABED1235 | Diária: R$ 200,00 | Disponível | Capacidade carga: 300Kg
+
+--- 6. Tratamento de Erros e Regras de Negócio ---
+Tentando alugar o Corolla novamente (já locado)...
+  ERRO ESPERADO: O veículo ABC1D23 (Corolla) não está disponível
+
+Tentando cadastrar cliente com CPF duplicado...
+  ERRO ESPERADO: CPF 12345678901 já está cadastrado
+
+--- 7. Finalizando Locação e Liberando Veículo ---
+Antes: [CARRO] id=1 | Toyota Corolla (2022) | Placa: ABC1D23 | Diária: R$ 150,00 | Em locação | 4 portas | FLEX
+Locação do Corolla finalizada.
+Depois: [CARRO] id=1 | Toyota Corolla (2022) | Placa: ABC1D23 | Diária: R$ 150,00 | Disponível | 4 portas | FLEX
+
+--- Resumo do Sistema ---
+  Veículos: 3 | Clientes: 2 | Locações: 2
+
+  Todas as locações:
+  Locacao[1] Maria Oliveira -> CARRO Corolla | 2026-05-28 até 2026-06-02 (5 dias) | R$ 750,00 | FINALIZADA
+  Locacao[2] João Silva -> MOTO CB 500 | 2026-05-28 até 2026-06-02 (5 dias) | R$ 360,00 | ATIVA
+
+===== RELATÓRIO GERENCIAL =====
+Total de veiculos: 3
+Disponiveis: 2 | Em locação: 1
+Total de clientes: 2
+Total de locações: 2
+Ativas: 1 | Finalizadas: 1 | Canceladas: 0
+Receita total (finalizadas): R$ 750,00
+Receita media por locação: R$ 750,00
