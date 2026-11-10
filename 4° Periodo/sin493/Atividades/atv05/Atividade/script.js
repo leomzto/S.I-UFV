@@ -65,39 +65,103 @@ function criarCarta(simbolo) {
 }
 
 function criarTabuleiro() {
-  // TODO 1: Limpe o tabuleiro anterior.
-  // TODO 2: Forme o vetor com dois de cada símbolo e embaralhe-o.
-  // TODO 3: Crie as cartas e adicione-as ao tabuleiro.
+  // 1. Limpa o tabuleiro anterior
+  tabuleiro.innerHTML = "";
+
+  // 2. Dois de cada símbolo, embaralhados
+  const baralho = embaralhar([...simbolos, ...simbolos]);
+
+  // 3. Cria as cartas e adiciona ao tabuleiro
+  baralho.forEach((simbolo) => {
+    tabuleiro.appendChild(criarCarta(simbolo));
+  });
 }
 
 function virarCarta(carta) {
-  // TODO 1: Ignore cliques durante o bloqueio ou em cartas já viradas/encontradas.
-  // TODO 2: Adicione a classe "virada" à carta selecionada.
-  // TODO 3: Guarde a primeira carta em primeiraCarta.
-  // TODO 4: Na segunda seleção, guarde segundaCarta e chame verificarPar().
+  // 1. Ignora cliques durante o bloqueio ou em cartas já viradas/encontradas
+  if (
+    bloquearClique ||
+    carta.classList.contains("virada") ||
+    carta.classList.contains("encontrada")
+  ) {
+    return;
+  }
+
+  // 2. Vira a carta
+  carta.classList.add("virada");
+  carta.setAttribute("aria-label", `Carta ${carta.dataset.simbolo}`);
+
+  // 3. Primeira carta
+  if (primeiraCarta === null) {
+    primeiraCarta = carta;
+    return;
+  }
+
+  // 4. Segunda carta: verifica o par
+  segundaCarta = carta;
+  verificarPar();
 }
 
 function verificarPar() {
-  // TODO 1: Bloqueie cliques enquanto compara o par.
-  // TODO 2: Incremente tentativas e atualize tentativasEl.
-  // TODO 3: Compare os dois dataset.simbolo.
-  // TODO 4: Chame marcarComoEncontrada() ou desvirarCartas().
+  // 1. Bloqueia cliques durante a comparação
+  bloquearClique = true;
+
+  // 2. Conta a tentativa
+  tentativas++;
+  tentativasEl.textContent = tentativas;
+
+  // 3. Compara os símbolos
+  const iguais = primeiraCarta.dataset.simbolo === segundaCarta.dataset.simbolo;
+
+  // 4. Acerto ou erro
+  if (iguais) {
+    marcarComoEncontrada();
+  } else {
+    desvirarCartas();
+  }
 }
 
 function marcarComoEncontrada() {
-  // TODO 1: Adicione a classe "encontrada" às duas cartas e desabilite-as.
-  // TODO 2: Incremente paresEncontrados e atualize paresEl.
-  // TODO 3: Exiba mensagem de acerto e chame resetarJogada().
-  // TODO 4: Se todos os 8 pares foram encontrados, pare o cronômetro,
-  //         atualize os resultados finais e mostre modalVitoria.
+  // 1. Marca e desabilita as duas cartas
+  [primeiraCarta, segundaCarta].forEach((c) => {
+    c.classList.add("encontrada");
+    c.disabled = true;
+  });
+
+  // 2. Atualiza o contador de pares
+  paresEncontrados++;
+  paresEl.textContent = paresEncontrados;
+
+  // 3. Mensagem de acerto e reset da jogada
+  mensagemEl.textContent = "Muito bem! Você encontrou um par.";
+  resetarJogada();
+
+  // 4. Vitória
+  if (paresEncontrados === simbolos.length) {
+    pararCronometro();
+    finalTentativas.textContent = tentativas;
+    finalTempo.textContent = formatarTempo(segundos);
+    mensagemEl.textContent = "Parabéns! Você encontrou todos os pares.";
+    modalVitoria.classList.remove("oculto");
+    modalVitoria.hidden = false;
+  }
 }
 
 function desvirarCartas() {
   mensagemEl.textContent = "As cartas são diferentes. Tente novamente.";
-  // TODO 1: Utilize setTimeout(..., 2000).
-  // TODO 2: Dentro da função agendada, retire a classe "virada" das cartas.
-  // TODO 3: Limpe temporizadorCartas e chame resetarJogada().
-  // Dica: armazene o identificador retornado pelo setTimeout em temporizadorCartas.
+
+  // 1. Agenda o desvirar por 2 segundos
+  temporizadorCartas = setTimeout(() => {
+    // 2. Remove a classe "virada" das duas cartas
+    primeiraCarta.classList.remove("virada");
+    segundaCarta.classList.remove("virada");
+    primeiraCarta.setAttribute("aria-label", "Carta escondida");
+    segundaCarta.setAttribute("aria-label", "Carta escondida");
+
+    // 3. Limpa o temporizador e libera a jogada
+    temporizadorCartas = null;
+    resetarJogada();
+  }, 2000);
 }
 
 function resetarJogada() {
@@ -107,11 +171,32 @@ function resetarJogada() {
 }
 
 function reiniciarJogo() {
-  // TODO 1: Pare o cronômetro e cancele temporizadorCartas, se existir.
-  // TODO 2: Limpe a seleção e zere tentativas, paresEncontrados e segundos.
-  // TODO 3: Atualize os contadores e a mensagem da página.
-  // TODO 4: Esconda a janela de vitória.
-  // TODO 5: Chame criarTabuleiro() e iniciarCronometro().
+  // 1. Para o cronômetro e cancela o temporizador pendente
+  pararCronometro();
+  if (temporizadorCartas !== null) {
+    clearTimeout(temporizadorCartas);
+    temporizadorCartas = null;
+  }
+
+  // 2. Limpa a seleção e zera os contadores
+  resetarJogada();
+  tentativas = 0;
+  paresEncontrados = 0;
+  segundos = 0;
+
+  // 3. Atualiza a interface
+  tentativasEl.textContent = tentativas;
+  paresEl.textContent = paresEncontrados;
+  tempoEl.textContent = formatarTempo(segundos);
+  mensagemEl.textContent = "Encontre todos os pares!";
+
+  // 4. Esconde a janela de vitória
+  modalVitoria.classList.add("oculto");
+  modalVitoria.hidden = true;
+
+  // 5. Novo tabuleiro e cronômetro
+  criarTabuleiro();
+  iniciarCronometro();
 }
 
 botaoReiniciar.addEventListener("click", reiniciarJogo);
