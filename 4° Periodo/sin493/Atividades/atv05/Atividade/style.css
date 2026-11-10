@@ -1,0 +1,47 @@
+* { box-sizing: border-box; }
+body {
+  min-height: 100vh; margin: 0; padding: 24px;
+  display: grid; place-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top left, #2563eb, transparent 45%),
+              linear-gradient(140deg, #0f172a, #172554 65%, #0e7490);
+  color: #fff;
+}
+.game-container {
+  width: 100%; max-width: 600px; padding: 30px;
+  border-radius: 26px; text-align: center;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.19);
+  box-shadow: 0 24px 70px rgba(0,0,0,.26);
+}
+.game-header h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); margin: 6px 0 8px; }
+.game-header p { margin: 0; color: #dbeafe; }
+.game-header .eyebrow { letter-spacing: .19em; color: #93c5fd; font-size: .75rem; font-weight: bold; }
+.game-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 25px 0; }
+.info-card { padding: 14px 6px; border-radius: 16px; background: rgba(255,255,255,.13); }
+.info-card span { display: block; font-size: .83rem; color: #dbeafe; }
+.info-card strong { display: block; font-size: 1.5rem; margin-top: 5px; }
+.info-card strong span { display: inline; font-size: inherit; color: inherit; }
+.tabuleiro { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+.carta { aspect-ratio: 1; padding: 0; border: 0; border-radius: 16px; background: transparent; cursor: pointer; perspective: 850px; }
+.carta:focus-visible { outline: 3px solid #facc15; outline-offset: 3px; }
+.carta:disabled { cursor: default; }
+.card-inner { position: relative; display: block; height: 100%; width: 100%; transform-style: preserve-3d; transition: transform .55s; }
+.carta.virada .card-inner { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; border-radius: 16px; display: grid; place-items: center; backface-visibility: hidden; box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+.front { background: linear-gradient(145deg,#60a5fa,#1d4ed8); font-size: 2rem; font-weight: bold; border: 2px solid rgba(255,255,255,.25); }
+.back { background: #fff; color: #0f172a; transform: rotateY(180deg); font-size: clamp(1.6rem, 5vw, 3rem); }
+.carta.encontrada .back { background: linear-gradient(145deg,#dcfce7,#86efac); border: 2px solid #22c55e; }
+.mensagem { min-height: 23px; color: #fde68a; margin: 18px 0; font-weight: bold; }
+.btn { border: 0; padding: 13px 24px; border-radius: 12px; font-weight: bold; font-size: 1rem; background: #f8fafc; color: #1e40af; cursor: pointer; transition: transform .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn:focus-visible { outline: 3px solid #facc15; outline-offset: 3px; }
+.modal { position: fixed; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(2,6,23,.8); }
+.modal.hidden { display: none; }
+.modal-content { width: 100%; max-width: 390px; padding: 32px; border-radius: 24px; background: #fff; color: #0f172a; text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,.4); }
+.modal-content h2 { margin: 10px 0; }
+.modal-content p { margin: 10px 0; }
+.modal-content .btn { margin-top: 14px; background: #2563eb; color: #fff; }
+.trofeu { font-size: 3rem; }
+@media(max-width:480px) { body {padding:12px;} .game-container {padding:18px;} .tabuleiro {gap:8px;} .face {border-radius:10px;} .info-card {padding:10px 4px;} }
+@media(prefers-reduced-motion:reduce) { .card-inner,.btn { transition:none; } }

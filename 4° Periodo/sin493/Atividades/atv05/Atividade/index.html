@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Memória</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="game-container">
+    <header class="game-header">
+      <p class="eyebrow">DESAFIO DE MEMÓRIA</p>
+      <h1>Jogo da Memória</h1>
+      <p>Encontre os 8 pares de cartas!</p>
+    </header>
+
+    <section class="game-info" aria-label="Placar">
+      <div class="info-card"><span>Tentativas</span><strong id="tentativas">0</strong></div>
+      <div class="info-card"><span>Pares</span><strong><span id="pares">0</span>/8</strong></div>
+      <div class="info-card"><span>Tempo</span><strong id="tempo">00:00</strong></div>
+    </section>
+
+    <section id="tabuleiro" class="tabuleiro" aria-label="Tabuleiro do jogo"></section>
+    <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+    <button type="button" id="reiniciar" class="btn">Reiniciar jogo</button>
+  </main>
+
+  <div id="modal-vitoria" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="titulo-vitoria">
+    <div class="modal-content">
+      <div class="trofeu">🏆</div>
+      <h2 id="titulo-vitoria">Parabéns!</h2>
+      <p>Você encontrou todos os pares.</p>
+      <p><strong>Tentativas:</strong> <span id="final-tentativas">0</span></p>
+      <p><strong>Tempo:</strong> <span id="final-tempo">00:00</span></p>
+      <button type="button" id="jogar-novamente" class="btn">Jogar novamente</button>
+    </div>
+  </div>
+</body>
+</html>
